@@ -15,6 +15,9 @@ public class ParqueoCS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+//        Bienvenido principal= new Bienvenido();
+        Principal principal= new Principal();
+        principal.setVisible(true);
     }
     
 }

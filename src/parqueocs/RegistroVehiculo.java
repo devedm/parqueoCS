@@ -15,6 +15,7 @@ public class RegistroVehiculo extends javax.swing.JFrame {
      */
     public RegistroVehiculo() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -33,8 +34,7 @@ public class RegistroVehiculo extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 600));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Placa");
@@ -48,6 +48,7 @@ public class RegistroVehiculo extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(45, 54, 72));
         jButton3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Registrar Vehiculo");
         jButton3.setAlignmentX(0.5F);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
