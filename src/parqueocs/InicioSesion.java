@@ -4,6 +4,8 @@
  */
 package parqueocs;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author minio
@@ -37,7 +39,7 @@ public class InicioSesion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelUsuario.setText("Usuario");
+        labelUsuario.setText("Cedula");
 
         labelContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelContrasenia.setText("Contraseña");
@@ -105,6 +107,28 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
+        Usuario user = new Usuario(11111111, "Eddy Mena", "123456");
+        user.toString();
+        if(!(fieldUsuario.getText().isBlank() || fieldContrasenia.getText().isBlank())){
+            if(fieldUsuario.getText().contentEquals(String.valueOf(user.getCedula()))){
+                if(fieldContrasenia.getText().contentEquals(user.getContrasenia())){
+                    JOptionPane.showMessageDialog(this,"Se ha iniciado sesion correctamente");
+                    new Principal().setVisible(true);
+                    dispose();
+                    // inicio correcto
+                } else {
+                    JOptionPane.showMessageDialog(this,"Error: contrasenia incorrecta");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this,"Error: el usuario no existe");
+            }
+        } else {
+            if(fieldUsuario.getText().isBlank()){
+                JOptionPane.showMessageDialog(this,"Error: el espacio de cedula esta vacio");
+            } else if(fieldContrasenia.getText().isBlank()){
+                JOptionPane.showMessageDialog(this,"Error: el espacio de Contrasenia esta vacio");
+            }
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
