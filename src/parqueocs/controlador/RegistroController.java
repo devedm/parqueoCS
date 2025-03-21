@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
-import parqueocs.ConsultasUsuario;
+import parqueocs.modelo.Consultas;
 import parqueocs.modelo.Usuario;
 import parqueocs.vista.Registro;
 
@@ -18,15 +18,16 @@ import parqueocs.vista.Registro;
  */
 public class RegistroController {
     Registro vista;
-    ConsultasUsuario modelo;
+    Consultas modelo;
 
-    public RegistroController(Registro vista, ConsultasUsuario modelo) {
+    public RegistroController(Registro vista, Consultas modelo) {
         this.vista = vista;
         this.modelo = modelo;
         initController();
     }
     
     private void initController(){
+        // Metodos de la vista
         // registrar Usuario
         vista.getBtnRegistrarse().addActionListener(new ActionListener(){
             @Override
@@ -40,9 +41,9 @@ public class RegistroController {
         if(!(vista.getFieldCedula().getText().isBlank()|| vista.getFieldUsuario().getText().isBlank() || vista.getFieldContrasenia().getPassword().length < 8 || vista.getFieldConfContrasenia().getPassword().length < 8)) {
             if(Arrays.equals(vista.getFieldContrasenia().getPassword(), vista.getFieldConfContrasenia().getPassword())){
                 Usuario nuevoUsuario = new Usuario(Integer.parseInt(vista.getFieldCedula().getText()), vista.getFieldUsuario().getText(), vista.getFieldContrasenia().getText());
-                modelo.registrarUsuario(nuevoUsuario);
-                // insertar metodo para guardar usuario en base de datos
-                JOptionPane.showMessageDialog(vista.getRootPane(), "El usuario ha sido registrado exitosamente");
+                if(modelo.registrarUsuario(nuevoUsuario)){
+                    JOptionPane.showMessageDialog(null, "Usuario " + nuevoUsuario.getNombre() + " registrado con exito!"); // manejar los mensajes en el modelo para tener los datos a mano;
+                } // guardar en la base de datos
                 vista.dispose();
             } else {
                 JOptionPane.showMessageDialog(vista.getRootPane(),"Error: las contrasenias no coinciden");

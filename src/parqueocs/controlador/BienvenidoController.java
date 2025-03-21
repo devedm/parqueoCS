@@ -6,8 +6,9 @@ package parqueocs.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import parqueocs.ConsultasUsuario;
+import parqueocs.modelo.Consultas;
 import parqueocs.vista.Bienvenido;
+import parqueocs.vista.InicioSesion;
 import parqueocs.vista.Registro;
 
 /**
@@ -23,6 +24,7 @@ public class BienvenidoController {
     }
     
     private void initController(){
+        // Metodos de la vista
         // abrir Registro
         vista.getBtnRegistrarse().addActionListener(new ActionListener() {
             @Override
@@ -52,15 +54,17 @@ public class BienvenidoController {
     private void abrirRegistro(){
         // Abre ls vista Registro
         Registro vistaRegistro = new Registro();
-        ConsultasUsuario modeloUsuario = new ConsultasUsuario();
+        Consultas modeloUsuario = new Consultas();
         new RegistroController(vistaRegistro, modeloUsuario);
         vistaRegistro.setVisible(true);
     }
     
     private void abrirInicioSesion(){
         // Abre ls vista Registro
-        Registro registro = new Registro();
-        registro.setVisible(true);
+        InicioSesion vistaInicioSesion = new InicioSesion();
+        Consultas modeloUsuario = new Consultas();
+        new InicioSesionController(vistaInicioSesion, modeloUsuario);
+        vistaInicioSesion.setVisible(true);
     }
     
     private void exit(){

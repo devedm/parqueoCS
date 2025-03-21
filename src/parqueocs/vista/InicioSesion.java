@@ -4,8 +4,11 @@
  */
 package parqueocs.vista;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import parqueocs.modelo.Usuario;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -21,6 +24,55 @@ public class InicioSesion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    public JButton getBtnIniciarSesion() {
+        return btnIniciarSesion;
+    }
+
+    public void setBtnIniciarSesion(JButton btnIniciarSesion) {
+        this.btnIniciarSesion = btnIniciarSesion;
+    }
+
+    public JTextField getFieldContrasenia() {
+        return fieldContrasenia;
+    }
+
+    public void setFieldContrasenia(JTextField fieldContrasenia) {
+        this.fieldContrasenia = fieldContrasenia;
+    }
+
+    public JTextField getFieldUsuario() {
+        return fieldUsuario;
+    }
+
+    public void setFieldUsuario(JTextField fieldUsuario) {
+        this.fieldUsuario = fieldUsuario;
+    }
+
+    public JLabel getLabelContrasenia() {
+        return labelContrasenia;
+    }
+
+    public void setLabelContrasenia(JLabel labelContrasenia) {
+        this.labelContrasenia = labelContrasenia;
+    }
+
+    public JLabel getLabelTitulo() {
+        return labelTitulo;
+    }
+
+    public void setLabelTitulo(JLabel labelTitulo) {
+        this.labelTitulo = labelTitulo;
+    }
+
+    public JLabel getLabelUsuario() {
+        return labelUsuario;
+    }
+
+    public void setLabelUsuario(JLabel labelUsuario) {
+        this.labelUsuario = labelUsuario;
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,28 +160,6 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-        Usuario user = new Usuario(11111111, "Eddy Mena", "123456");
-        user.toString();
-        if(!(fieldUsuario.getText().isBlank() || fieldContrasenia.getText().isBlank())){
-            if(fieldUsuario.getText().contentEquals(String.valueOf(user.getCedula()))){
-                if(fieldContrasenia.getText().contentEquals(user.getContrasenia())){
-                    JOptionPane.showMessageDialog(this,"Se ha iniciado sesion correctamente");
-                    new Principal().setVisible(true);
-                    dispose();
-                    // inicio correcto
-                } else {
-                    JOptionPane.showMessageDialog(this,"Error: contrasenia incorrecta");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this,"Error: el usuario no existe");
-            }
-        } else {
-            if(fieldUsuario.getText().isBlank()){
-                JOptionPane.showMessageDialog(this,"Error: el espacio de cedula esta vacio");
-            } else if(fieldContrasenia.getText().isBlank()){
-                JOptionPane.showMessageDialog(this,"Error: el espacio de Contrasenia esta vacio");
-            }
-        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**

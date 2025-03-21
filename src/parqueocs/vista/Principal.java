@@ -4,6 +4,10 @@
  */
 package parqueocs.vista;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import parqueocs.vista.InicioSesion;
 
 /**
@@ -20,6 +24,81 @@ public class Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    public JButton getBtnEditarVehiculo() {
+        return btnEditarVehiculo;
+    }
+
+    public void setBtnEditarVehiculo(JButton btnEditarVehiculo) {
+        this.btnEditarVehiculo = btnEditarVehiculo;
+    }
+
+    public JButton getBtnParquear() {
+        return btnParquear;
+    }
+
+    public void setBtnParquear(JButton btnParquear) {
+        this.btnParquear = btnParquear;
+    }
+
+    public JButton getBtnRegistrarVehiculo() {
+        return btnRegistrarVehiculo;
+    }
+
+    public void setBtnRegistrarVehiculo(JButton btnRegistrarVehiculo) {
+        this.btnRegistrarVehiculo = btnRegistrarVehiculo;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JScrollPane getjScrollPane2() {
+        return jScrollPane2;
+    }
+
+    public void setjScrollPane2(JScrollPane jScrollPane2) {
+        this.jScrollPane2 = jScrollPane2;
+    }
+
+    public JLabel getLabelParqueados() {
+        return labelParqueados;
+    }
+
+    public void setLabelParqueados(JLabel labelParqueados) {
+        this.labelParqueados = labelParqueados;
+    }
+
+    public JLabel getLabelTitulo1() {
+        return labelTitulo1;
+    }
+
+    public void setLabelTitulo1(JLabel labelTitulo1) {
+        this.labelTitulo1 = labelTitulo1;
+    }
+
+    public JList<String> getListParqueados() {
+        return listParqueados;
+    }
+
+    public void setListParqueados(JList<String> listParqueados) {
+        this.listParqueados = listParqueados;
+    }
+
+    public JList<String> getListVehiculos() {
+        return listVehiculos;
+    }
+
+    public void setListVehiculos(JList<String> listVehiculos) {
+        this.listVehiculos = listVehiculos;
+    }
+
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,7 +116,7 @@ public class Principal extends javax.swing.JFrame {
         listParqueados = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         listVehiculos = new javax.swing.JList<>();
-        btnRegistrarVehiculo1 = new javax.swing.JButton();
+        btnParquear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -83,14 +162,14 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listVehiculos);
 
-        btnRegistrarVehiculo1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnRegistrarVehiculo1.setText("Parquear");
-        btnRegistrarVehiculo1.setAlignmentX(0.5F);
-        btnRegistrarVehiculo1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRegistrarVehiculo1.setMargin(new java.awt.Insets(4, 8, 1, 8));
-        btnRegistrarVehiculo1.addActionListener(new java.awt.event.ActionListener() {
+        btnParquear.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnParquear.setText("Parquear");
+        btnParquear.setAlignmentX(0.5F);
+        btnParquear.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnParquear.setMargin(new java.awt.Insets(4, 8, 1, 8));
+        btnParquear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarVehiculo1ActionPerformed(evt);
+                btnParquearActionPerformed(evt);
             }
         });
 
@@ -112,7 +191,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(btnRegistrarVehiculo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEditarVehiculo))))
-                    .addComponent(btnRegistrarVehiculo1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnParquear, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -127,7 +206,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnRegistrarVehiculo)
                     .addComponent(btnEditarVehiculo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRegistrarVehiculo1)
+                .addComponent(btnParquear)
                 .addGap(44, 44, 44)
                 .addComponent(labelParqueados)
                 .addGap(18, 18, 18)
@@ -140,16 +219,15 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
         // TODO add your handling code here:
-        new InicioSesion().setVisible(true);
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
     private void btnEditarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarVehiculoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditarVehiculoActionPerformed
 
-    private void btnRegistrarVehiculo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculo1ActionPerformed
+    private void btnParquearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParquearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegistrarVehiculo1ActionPerformed
+    }//GEN-LAST:event_btnParquearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,8 +266,8 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditarVehiculo;
+    private javax.swing.JButton btnParquear;
     private javax.swing.JButton btnRegistrarVehiculo;
-    private javax.swing.JButton btnRegistrarVehiculo1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelParqueados;

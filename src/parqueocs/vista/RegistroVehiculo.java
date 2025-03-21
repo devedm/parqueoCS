@@ -4,6 +4,10 @@
  */
 package parqueocs.vista;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
 /**
  *
  * @author minio
@@ -18,6 +22,38 @@ public class RegistroVehiculo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    public JButton getBtnRegistrarVehiculo() {
+        return btnRegistrarVehiculo;
+    }
+
+    public void setBtnRegistrarVehiculo(JButton btnRegistrarVehiculo) {
+        this.btnRegistrarVehiculo = btnRegistrarVehiculo;
+    }
+
+    public JTextField getFieldPlaca() {
+        return fieldPlaca;
+    }
+
+    public void setFieldPlaca(JTextField fieldPlaca) {
+        this.fieldPlaca = fieldPlaca;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public void setjLabel3(JLabel jLabel3) {
+        this.jLabel3 = jLabel3;
+    }
+
+    public JLabel getLabelPlaca() {
+        return labelPlaca;
+    }
+
+    public void setLabelPlaca(JLabel labelPlaca) {
+        this.labelPlaca = labelPlaca;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,39 +63,32 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        fieldPlaca = new javax.swing.JTextField();
+        labelPlaca = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        btnRegistrarVehiculo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Placa");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Tipo");
+        labelPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelPlaca.setText("Placa");
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
         jLabel3.setText("Registro Vehiculo");
 
-        jButton3.setBackground(new java.awt.Color(45, 54, 72));
-        jButton3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Registrar Vehiculo");
-        jButton3.setAlignmentX(0.5F);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setMargin(new java.awt.Insets(5, 14, 3, 14));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarVehiculo.setBackground(new java.awt.Color(45, 54, 72));
+        btnRegistrarVehiculo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnRegistrarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarVehiculo.setText("Registrar Vehiculo");
+        btnRegistrarVehiculo.setAlignmentX(0.5F);
+        btnRegistrarVehiculo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRegistrarVehiculo.setMargin(new java.awt.Insets(5, 14, 3, 14));
+        btnRegistrarVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnRegistrarVehiculoActionPerformed(evt);
             }
         });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,18 +98,16 @@ public class RegistroVehiculo extends javax.swing.JFrame {
                 .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPlaca)
+                            .addComponent(fieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(80, 80, 80))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(108, 108, 108)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -89,24 +116,20 @@ public class RegistroVehiculo extends javax.swing.JFrame {
                 .addGap(86, 86, 86)
                 .addComponent(jLabel3)
                 .addGap(89, 89, 89)
-                .addComponent(jLabel1)
+                .addComponent(labelPlaca)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,11 +167,9 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnRegistrarVehiculo;
+    private javax.swing.JTextField fieldPlaca;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelPlaca;
     // End of variables declaration//GEN-END:variables
 }
