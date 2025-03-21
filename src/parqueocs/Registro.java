@@ -4,6 +4,9 @@
  */
 package parqueocs;
 
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author minio
@@ -29,12 +32,14 @@ public class Registro extends javax.swing.JFrame {
 
         jLabel3 = new javax.swing.JLabel();
         btnRegistrarse = new javax.swing.JButton();
-        fieldUsuario = new javax.swing.JTextField();
-        labelUsuario = new javax.swing.JLabel();
+        fieldCedula = new javax.swing.JTextField();
+        labelCedula = new javax.swing.JLabel();
         labelContrasenia = new javax.swing.JLabel();
         labelConfContrasenia = new javax.swing.JLabel();
         fieldContrasenia = new javax.swing.JPasswordField();
         fieldConfContrasenia = new javax.swing.JPasswordField();
+        fieldUsuario = new javax.swing.JTextField();
+        labelUsuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -57,8 +62,8 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelUsuario.setText("Usuario");
+        labelCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelCedula.setText("Cedula");
 
         labelContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelContrasenia.setText("Contraseña");
@@ -70,6 +75,9 @@ public class Registro extends javax.swing.JFrame {
 
         fieldConfContrasenia.setText("jPasswordField1");
 
+        labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelUsuario.setText("Usuario");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,43 +85,49 @@ public class Registro extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
+                        .addGap(104, 104, 104)
                         .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelConfContrasenia)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(labelContrasenia)
-                                .addComponent(labelUsuario)
-                                .addComponent(fieldUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                                .addComponent(fieldContrasenia))
-                            .addComponent(fieldConfContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                                .addComponent(labelCedula)
+                                .addComponent(fieldCedula)
+                                .addComponent(fieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fieldConfContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelUsuario)
+                            .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(jLabel3)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addContainerGap(75, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(36, 36, 36)
+                .addGap(37, 37, 37)
+                .addComponent(labelCedula)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fieldCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelContrasenia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelConfContrasenia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldConfContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addGap(53, 53, 53))
         );
 
         pack();
@@ -121,6 +135,30 @@ public class Registro extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         // TODO add your handling code here:
+        if(!(fieldCedula.getText().isBlank()|| fieldUsuario.getText().isBlank() || fieldContrasenia.getPassword().length < 8 || fieldConfContrasenia.getPassword().length < 8)) {
+            if(Arrays.equals(fieldContrasenia.getPassword(), fieldConfContrasenia.getPassword())){
+                Usuario user = new Usuario(Integer.parseInt(fieldCedula.getText()), fieldCedula.getText(), fieldContrasenia.getText());
+                user.toString();
+                // insertar metodo para guardar usuario en base de datos
+                JOptionPane.showMessageDialog(rootPane, "El usuario ha sido registrado exitosamente");
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this,"Error: las contrasenias no coinciden");
+            }
+        } else {
+            if(fieldCedula.getText().isBlank()){
+                JOptionPane.showMessageDialog(this,"Error: el espacio de Cedula esta vacio");
+            } else if(fieldUsuario.getText().isBlank()){
+                JOptionPane.showMessageDialog(this,"Error: el espacio de Nombre esta vacio");
+            } else if(fieldContrasenia.getPassword().length < 8){
+                JOptionPane.showMessageDialog(this,"Error: el espacio de Contrasenia esta vacio");
+            } else if(fieldConfContrasenia.getPassword().length < 8){
+                JOptionPane.showMessageDialog(this,"Error: el espacio de Confirmar Contrasenia esta vacio");
+            } else {
+                JOptionPane.showMessageDialog(this,"Error: desconocido vuelva a intentarlo");
+            }
+        }
+        
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     /**
@@ -160,10 +198,12 @@ public class Registro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarse;
+    private javax.swing.JTextField fieldCedula;
     private javax.swing.JPasswordField fieldConfContrasenia;
     private javax.swing.JPasswordField fieldContrasenia;
     private javax.swing.JTextField fieldUsuario;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel labelCedula;
     private javax.swing.JLabel labelConfContrasenia;
     private javax.swing.JLabel labelContrasenia;
     private javax.swing.JLabel labelUsuario;
