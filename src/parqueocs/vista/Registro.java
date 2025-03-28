@@ -157,10 +157,6 @@ public class Registro extends javax.swing.JFrame {
         labelConfContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelConfContrasenia.setText("Confirmar Contraseña");
 
-        fieldContrasenia.setText("jPasswordField1");
-
-        fieldConfContrasenia.setText("jPasswordField1");
-
         labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelUsuario.setText("Usuario");
 

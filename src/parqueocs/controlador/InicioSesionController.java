@@ -16,17 +16,18 @@ import parqueocs.vista.Principal;
  *
  * @author minio
  */
-public class InicioSesionController {
+public class InicioSesionController extends Controller{
     InicioSesion vista;
-    Consultas modelo;
 
     public InicioSesionController(InicioSesion vista, Consultas modelo) {
         this.vista = vista;
-        this.modelo = modelo;
         initController();
     }
+
+
     
-    private void initController(){
+    @Override
+    void initController(){
         // Metodos de la vista
         // Iniciar Sesion
         vista.getBtnIniciarSesion().addActionListener(new ActionListener(){

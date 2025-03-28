@@ -146,14 +146,8 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="fieldContrasenia">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="fieldConfContrasenia">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="fieldUsuario">
     </Component>
