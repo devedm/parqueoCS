@@ -24,6 +24,7 @@ public class Registro extends javax.swing.JFrame {
     public Registro() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Sistema de Parqueo - Registro");
     }
 
     public JButton getBtnRegistrarse() {
@@ -189,7 +190,7 @@ public class Registro extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(37, 37, 37)
                 .addComponent(labelCedula)
@@ -255,11 +256,11 @@ public class Registro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistrarse;
-    private javax.swing.JTextField fieldCedula;
-    private javax.swing.JPasswordField fieldConfContrasenia;
-    private javax.swing.JPasswordField fieldContrasenia;
-    private javax.swing.JTextField fieldUsuario;
+    public javax.swing.JButton btnRegistrarse;
+    public javax.swing.JTextField fieldCedula;
+    public javax.swing.JPasswordField fieldConfContrasenia;
+    public javax.swing.JPasswordField fieldContrasenia;
+    public javax.swing.JTextField fieldUsuario;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labelCedula;
     private javax.swing.JLabel labelConfContrasenia;

@@ -20,40 +20,9 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     public RegistroVehiculo() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Sistema de Parqueo - Registro Vehiculo");
     }
-
-    public JButton getBtnRegistrarVehiculo() {
-        return btnRegistrarVehiculo;
-    }
-
-    public void setBtnRegistrarVehiculo(JButton btnRegistrarVehiculo) {
-        this.btnRegistrarVehiculo = btnRegistrarVehiculo;
-    }
-
-    public JTextField getFieldPlaca() {
-        return fieldPlaca;
-    }
-
-    public void setFieldPlaca(JTextField fieldPlaca) {
-        this.fieldPlaca = fieldPlaca;
-    }
-
-    public JLabel getjLabel3() {
-        return jLabel3;
-    }
-
-    public void setjLabel3(JLabel jLabel3) {
-        this.jLabel3 = jLabel3;
-    }
-
-    public JLabel getLabelPlaca() {
-        return labelPlaca;
-    }
-
-    public void setLabelPlaca(JLabel labelPlaca) {
-        this.labelPlaca = labelPlaca;
-    }
-    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,8 +136,8 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistrarVehiculo;
-    private javax.swing.JTextField fieldPlaca;
+    public javax.swing.JButton btnRegistrarVehiculo;
+    public javax.swing.JTextField fieldPlaca;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labelPlaca;
     // End of variables declaration//GEN-END:variables

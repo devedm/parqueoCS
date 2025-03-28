@@ -11,8 +11,35 @@ import parqueocs.modelo.Vehiculo;
  * @author minio
  */
 public class EspacioParqueo {
-    int id;
-    Vehiculo vehiculoParqueado;
+    private int id;
+    private Vehiculo vehiculoParqueado;
+    
+    public EspacioParqueo(int id) {
+        this.id = id;
+        this.vehiculoParqueado = null;
+    }
+
+    public EspacioParqueo(int id, Vehiculo vehiculoParqueado) {
+        this.id = id;
+        this.vehiculoParqueado = vehiculoParqueado;
+    }
+
+    public Vehiculo getVehiculoParqueado() {
+        return vehiculoParqueado;
+    }
+
+    public void setVehiculoParqueado(Vehiculo vehiculoParqueado) {
+        this.vehiculoParqueado = vehiculoParqueado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
     
 }

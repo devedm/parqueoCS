@@ -16,25 +16,21 @@ import parqueocs.vista.Registro;
  *
  * @author minio
  */
-public class RegistroController {
+public class RegistroController implements ActionListener{
     Registro vista;
     Consultas modelo;
 
     public RegistroController(Registro vista, Consultas modelo) {
         this.vista = vista;
         this.modelo = modelo;
-        initController();
+        this.vista.btnRegistrarse.addActionListener(this);
     }
     
-    private void initController(){
-        // Metodos de la vista
-        // registrar Usuario
-        vista.getBtnRegistrarse().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                registrarUsuario();
-            }
-        });
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == vista.btnRegistrarse){
+            registrarUsuario();
+        }
     }
     
     private void registrarUsuario(){

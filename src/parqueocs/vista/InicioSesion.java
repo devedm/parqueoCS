@@ -21,6 +21,7 @@ public class InicioSesion extends javax.swing.JFrame {
      */
     public InicioSesion() {
         initComponents();
+        setTitle("Sistema de Parqueo - Inicio de Sesion");
         setLocationRelativeTo(null);
     }
 
@@ -198,9 +199,9 @@ public class InicioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIniciarSesion;
-    private javax.swing.JTextField fieldContrasenia;
-    private javax.swing.JTextField fieldUsuario;
+    public javax.swing.JButton btnIniciarSesion;
+    public javax.swing.JTextField fieldContrasenia;
+    public javax.swing.JTextField fieldUsuario;
     private javax.swing.JLabel labelContrasenia;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JLabel labelUsuario;

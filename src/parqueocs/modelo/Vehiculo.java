@@ -5,7 +5,6 @@
 package parqueocs.modelo;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -18,16 +17,25 @@ public class Vehiculo {
     private LocalDate fecha;
     private LocalTime entradaHora;
     private LocalTime salidaHora;
-    private long duracionMinutos;
+    private int duracionMinutos;
     private int espacioParqueo;
 
-    public Vehiculo(String placa, String tipo) {
+    public Vehiculo(String placa) {
         this.placa = placa;
-        this.fecha = null;
-        this.entradaHora = null;
-        this.salidaHora = null;
+        this.fecha = LocalDate.now();
+        this.entradaHora = LocalTime.now();
+        this.salidaHora = LocalTime.now();
         this.duracionMinutos = 0;
         this.espacioParqueo = 0;
+    }
+
+    public Vehiculo(String placa, LocalDate fecha, LocalTime entradaHora, LocalTime salidaHora, int duracionMinutos, int espacioParqueo) {
+        this.placa = placa;
+        this.fecha = fecha;
+        this.entradaHora = entradaHora;
+        this.salidaHora = salidaHora;
+        this.duracionMinutos = duracionMinutos;
+        this.espacioParqueo = espacioParqueo;
     }
 
     void calcularTiempo(){
@@ -35,6 +43,22 @@ public class Vehiculo {
             
         }
     }
+    
+//    public Date asDate(LocalDate localDate) {
+//        return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+//    }
+//
+//    public Date asDate(LocalDateTime localDateTime) {
+//        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+//    }
+//
+//    public LocalDate asLocalDate(Date date) {
+//        return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+//    }
+//
+//    public LocalDateTime asLocalDateTime(Date date) {
+//        return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+//    }
 
     public String getPlaca() {
         return placa;
@@ -68,11 +92,11 @@ public class Vehiculo {
         this.salidaHora = salidaHora;
     }
 
-    public long getDuracionMinutos() {
+    public int getDuracionMinutos() {
         return duracionMinutos;
     }
 
-    public void setDuracionMinutos(long duracionMinutos) {
+    public void setDuracionMinutos(int duracionMinutos) {
         this.duracionMinutos = duracionMinutos;
     }
 

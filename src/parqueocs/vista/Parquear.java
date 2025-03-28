@@ -16,6 +16,7 @@ public class Parquear extends javax.swing.JFrame {
     public Parquear() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Sistema de Parqueo - Parquear");
     }
 
     /**
@@ -255,22 +256,22 @@ public class Parquear extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnParquear;
-    private javax.swing.JComboBox<String> comboAuto;
-    private javax.swing.JTextField fieldBuscar;
-    private javax.swing.JFormattedTextField fieldEntradaHora;
-    private javax.swing.JFormattedTextField fieldFecha;
-    private javax.swing.JFormattedTextField fieldSalidaHora;
+    public javax.swing.JButton btnBuscar;
+    public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnParquear;
+    public javax.swing.JComboBox<String> comboAuto;
+    public javax.swing.JTextField fieldBuscar;
+    public javax.swing.JFormattedTextField fieldEntradaHora;
+    public javax.swing.JFormattedTextField fieldFecha;
+    public javax.swing.JFormattedTextField fieldSalidaHora;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelEspacios;
-    private javax.swing.JLabel labelTiempo;
+    public javax.swing.JLabel labelTiempo;
     private javax.swing.JLabel labelTitulo;
-    private javax.swing.JList<String> listResultados;
+    public javax.swing.JList<String> listResultados;
     // End of variables declaration//GEN-END:variables
 }

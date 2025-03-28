@@ -5,15 +5,9 @@
 package parqueocs;
 
 import parqueocs.vista.Bienvenido;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.util.Formatter;
+
 import parqueocs.controlador.BienvenidoController;
+import parqueocs.modelo.Consultas;
 
 /**
  *
@@ -26,9 +20,10 @@ public class ParqueoCS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Bienvenido vistaBienvenido= new Bienvenido();
-        new BienvenidoController(vistaBienvenido);
-        vistaBienvenido.setVisible(true);
+        Consultas consultas = new Consultas();
+        Bienvenido vista = new Bienvenido();
+        BienvenidoController controlador = new BienvenidoController(vista,consultas);
+        vista.setVisible(true);
                 
 
         

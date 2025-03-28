@@ -22,14 +22,15 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Sistema de Parqueo - Principal");
     }
 
     public JButton getBtnEditarVehiculo() {
-        return btnEditarVehiculo;
+        return btnEliminarVehiculo;
     }
 
     public void setBtnEditarVehiculo(JButton btnEditarVehiculo) {
-        this.btnEditarVehiculo = btnEditarVehiculo;
+        this.btnEliminarVehiculo = btnEditarVehiculo;
     }
 
     public JButton getBtnParquear() {
@@ -111,7 +112,7 @@ public class Principal extends javax.swing.JFrame {
         labelParqueados = new javax.swing.JLabel();
         labelTitulo1 = new javax.swing.JLabel();
         btnRegistrarVehiculo = new javax.swing.JButton();
-        btnEditarVehiculo = new javax.swing.JButton();
+        btnEliminarVehiculo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listParqueados = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -137,14 +138,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnEditarVehiculo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnEditarVehiculo.setText("Editar Vehiculo");
-        btnEditarVehiculo.setAlignmentX(0.5F);
-        btnEditarVehiculo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEditarVehiculo.setMargin(new java.awt.Insets(4, 8, 1, 8));
-        btnEditarVehiculo.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarVehiculo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnEliminarVehiculo.setText("Eliminar Vehiculo");
+        btnEliminarVehiculo.setAlignmentX(0.5F);
+        btnEliminarVehiculo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEliminarVehiculo.setMargin(new java.awt.Insets(4, 8, 1, 8));
+        btnEliminarVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarVehiculoActionPerformed(evt);
+                btnEliminarVehiculoActionPerformed(evt);
             }
         });
 
@@ -155,11 +156,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listParqueados);
 
-        listVehiculos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        listVehiculos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(listVehiculos);
 
         btnParquear.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -190,7 +187,7 @@ public class Principal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnRegistrarVehiculo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEditarVehiculo))))
+                                .addComponent(btnEliminarVehiculo))))
                     .addComponent(btnParquear, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
@@ -204,7 +201,7 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarVehiculo)
-                    .addComponent(btnEditarVehiculo))
+                    .addComponent(btnEliminarVehiculo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnParquear)
                 .addGap(44, 44, 44)
@@ -221,9 +218,9 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
 
-    private void btnEditarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarVehiculoActionPerformed
+    private void btnEliminarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVehiculoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditarVehiculoActionPerformed
+    }//GEN-LAST:event_btnEliminarVehiculoActionPerformed
 
     private void btnParquearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParquearActionPerformed
         // TODO add your handling code here:
@@ -265,14 +262,14 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditarVehiculo;
-    private javax.swing.JButton btnParquear;
-    private javax.swing.JButton btnRegistrarVehiculo;
+    public javax.swing.JButton btnEliminarVehiculo;
+    public javax.swing.JButton btnParquear;
+    public javax.swing.JButton btnRegistrarVehiculo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelParqueados;
     private javax.swing.JLabel labelTitulo1;
-    private javax.swing.JList<String> listParqueados;
-    private javax.swing.JList<String> listVehiculos;
+    public javax.swing.JList<String> listParqueados;
+    public javax.swing.JList<String> listVehiculos;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,26 +16,22 @@ import parqueocs.vista.Principal;
  *
  * @author minio
  */
-public class InicioSesionController extends Controller{
-    InicioSesion vista;
+public class InicioSesionController implements ActionListener{
+    private final InicioSesion vista;
+    private final Consultas modelo;
 
     public InicioSesionController(InicioSesion vista, Consultas modelo) {
         this.vista = vista;
-        initController();
+        this.modelo = modelo;
+        this.vista.btnIniciarSesion.addActionListener(this);
+        
     }
-
-
     
     @Override
-    void initController(){
-        // Metodos de la vista
-        // Iniciar Sesion
-        vista.getBtnIniciarSesion().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                iniciarSesion();
-            }
-        });
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == vista.btnIniciarSesion){
+            iniciarSesion();
+        }
     }
     
     public void iniciarSesion(){
@@ -49,7 +45,8 @@ public class InicioSesionController extends Controller{
                     if(vista.getFieldContrasenia().getText().contentEquals(usuarioExistente.getContrasenia())){
                         // inicio correcto
                         JOptionPane.showMessageDialog(vista.getRootPane(),"Se ha iniciado sesion correctamente");
-                        abrirPrincipal(); // iniciar sesion
+                        usuarioExistente = modelo.buscarUsuario(usuarioExistente);
+                        abrirPrincipal(usuarioExistente); // iniciar sesion
                         exit();
                         
                     } else {
@@ -69,16 +66,16 @@ public class InicioSesionController extends Controller{
         }
     }
     
-    public void abrirPrincipal(){
+    public void abrirPrincipal(Usuario usuario){
         // Abre ls vista Principal
         Principal vistaPrincipal = new Principal();
         Consultas modelo = new Consultas();
-        new PrincipalController(vistaPrincipal, modelo);
+        new PrincipalController(vistaPrincipal, modelo, usuario);
         vistaPrincipal.setVisible(true);
     }
     
     private void exit(){
         // Cierra la vista
         vista.dispose();
-    }
+    }   
 }

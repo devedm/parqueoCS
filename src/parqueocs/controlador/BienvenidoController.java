@@ -15,41 +15,32 @@ import parqueocs.vista.Registro;
  *
  * @author minio
  */
-public class BienvenidoController {
-    private Bienvenido vista;
+public class BienvenidoController implements ActionListener{
+    private final Bienvenido vista;
+    private final Consultas modelo;
 
-    public BienvenidoController(Bienvenido vista) {
+    public BienvenidoController(Bienvenido vista, Consultas modelo) {
         this.vista = vista;
-        initController();
+        this.modelo = modelo;
+        this.vista.btnIniciarSesion.addActionListener(this);
+        this.vista.btnRegistrarse.addActionListener(this);
+        this.vista.btnSalir.addActionListener(this);
     }
     
-    private void initController(){
-        // Metodos de la vista
-        // abrir Registro
-        vista.getBtnRegistrarse().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirRegistro();
-            }
-        });
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == vista.btnIniciarSesion){
+            abrirInicioSesion();
+        }
         
-        // abrir Inicio Sesion
-        vista.getBtnIniciarSesion().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirInicioSesion();
-            }
-        });
-        
-        // abrir Inicio Sesion
-        vista.getBtnSalir().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exit();
-            }
-        });
-    }
-    
+        if (e.getSource() == vista.btnRegistrarse){
+            abrirRegistro();
+        }
+        if (e.getSource() == vista.btnSalir){
+            exit();
+        }
+    }   
+
     
     private void abrirRegistro(){
         // Abre ls vista Registro
@@ -71,5 +62,8 @@ public class BienvenidoController {
         // Cierra ls vista Bienvenido
         vista.dispose();
     }
+
+
+
     
 }
