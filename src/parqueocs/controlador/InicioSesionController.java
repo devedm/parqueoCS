@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import parqueocs.modelo.Consultas;
 import parqueocs.modelo.Usuario;
+import parqueocs.vista.Bienvenido;
 import parqueocs.vista.InicioSesion;
 import parqueocs.vista.Principal;
 
@@ -24,13 +25,16 @@ public class InicioSesionController implements ActionListener{
         this.vista = vista;
         this.modelo = modelo;
         this.vista.btnIniciarSesion.addActionListener(this);
-        
+        this.vista.btnAtras.addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == vista.btnIniciarSesion){
             iniciarSesion();
+        }
+        if(e.getSource() == vista.btnAtras){
+            volver();
         }
     }
     
@@ -47,7 +51,6 @@ public class InicioSesionController implements ActionListener{
                         JOptionPane.showMessageDialog(vista.getRootPane(),"Se ha iniciado sesion correctamente");
                         usuarioExistente = modelo.buscarUsuario(usuarioExistente);
                         abrirPrincipal(usuarioExistente); // iniciar sesion
-                        exit();
                         
                     } else {
                         JOptionPane.showMessageDialog(vista.getRootPane(),"Error: contrasenia incorrecta");
@@ -72,10 +75,13 @@ public class InicioSesionController implements ActionListener{
         Consultas modelo = new Consultas();
         new PrincipalController(vistaPrincipal, modelo, usuario);
         vistaPrincipal.setVisible(true);
+        
+        vista.setContentPane(vistaPrincipal.getContentPane());
+        vista.revalidate();
+        vista.repaint();
     }
     
-    private void exit(){
-        // Cierra la vista
+    public void volver(){
         vista.dispose();
-    }   
+    }
 }

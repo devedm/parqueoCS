@@ -47,6 +47,7 @@ public class BienvenidoController implements ActionListener{
         Registro vistaRegistro = new Registro();
         Consultas modeloUsuario = new Consultas();
         new RegistroController(vistaRegistro, modeloUsuario);
+        
         vistaRegistro.setVisible(true);
     }
     
@@ -55,6 +56,7 @@ public class BienvenidoController implements ActionListener{
         InicioSesion vistaInicioSesion = new InicioSesion();
         Consultas modeloUsuario = new Consultas();
         new InicioSesionController(vistaInicioSesion, modeloUsuario);
+        
         vistaInicioSesion.setVisible(true);
     }
     

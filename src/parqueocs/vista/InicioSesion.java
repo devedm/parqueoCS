@@ -4,11 +4,13 @@
  */
 package parqueocs.vista;
 
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import parqueocs.modelo.Usuario;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import parqueocs.modelo.ColoresInterfaz;
 
 /**
  *
@@ -19,10 +21,14 @@ public class InicioSesion extends javax.swing.JFrame {
     /**
      * Creates new form InicioSesion
      */
+    
+    ColoresInterfaz c = new ColoresInterfaz();
+    
     public InicioSesion() {
         initComponents();
         setTitle("Sistema de Parqueo - Inicio de Sesion");
         setLocationRelativeTo(null);
+        getContentPane().setBackground(c.getColorFondo());
     }
 
     public JButton getBtnIniciarSesion() {
@@ -89,22 +95,26 @@ public class InicioSesion extends javax.swing.JFrame {
         labelContrasenia = new javax.swing.JLabel();
         labelTitulo = new javax.swing.JLabel();
         btnIniciarSesion = new javax.swing.JButton();
+        btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelUsuario.setForeground(c.getColorTexto());
         labelUsuario.setText("Cedula");
 
         labelContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelContrasenia.setForeground(c.getColorTexto());
         labelContrasenia.setText("Contraseña");
 
         labelTitulo.setBackground(new java.awt.Color(255, 255, 255));
         labelTitulo.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
+        labelTitulo.setForeground(c.getColorTexto());
         labelTitulo.setText("Iniciar Sesion");
 
-        btnIniciarSesion.setBackground(new java.awt.Color(45, 54, 72));
-        btnIniciarSesion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnIniciarSesion.setBackground(c.getColorPrimario());
+        btnIniciarSesion.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnIniciarSesion.setForeground(c.getColorTexto());
         btnIniciarSesion.setText("Iniciar Sesion");
         btnIniciarSesion.setAlignmentX(0.5F);
         btnIniciarSesion.setBorderPainted(false);
@@ -116,27 +126,41 @@ public class InicioSesion extends javax.swing.JFrame {
             }
         });
 
+        btnAtras.setBackground(c.getColorPrimario());
+        btnAtras.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnAtras.setForeground(c.getColorTexto());
+        btnAtras.setText("Atras");
+        btnAtras.setAlignmentX(0.5F);
+        btnAtras.setBorderPainted(false);
+        btnAtras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAtras.setMargin(new java.awt.Insets(5, 14, 3, 14));
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addComponent(labelTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnIniciarSesion))
                     .addComponent(labelContrasenia)
                     .addComponent(fieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelUsuario)
                     .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(labelTitulo)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,9 +175,11 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addComponent(labelContrasenia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(72, 72, 72))
         );
 
         pack();
@@ -162,6 +188,10 @@ public class InicioSesion extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,6 +229,7 @@ public class InicioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnAtras;
     public javax.swing.JButton btnIniciarSesion;
     public javax.swing.JTextField fieldContrasenia;
     public javax.swing.JTextField fieldUsuario;

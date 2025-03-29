@@ -4,6 +4,7 @@
  */
 package parqueocs.vista;
 
+import java.awt.Color;
 import parqueocs.modelo.Usuario;
 import java.util.Arrays;
 import javax.swing.JButton;
@@ -21,10 +22,19 @@ public class Registro extends javax.swing.JFrame {
     /**
      * Creates new form Registro
      */
+    
+    Color colorPrimario = Color.decode("#F2CB05");
+    Color colorSecundario = Color.decode("#2C3E50");
+    Color colorAcento = Color.decode("#27AE60");
+    Color colorFondo = Color.decode("#F8F9F9");
+    Color colorTexto = Color.decode("#2C3E50");
+    Color colorBordes = Color.decode("#BDC3C7");
+    
     public Registro() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Sistema de Parqueo - Registro");
+        getContentPane().setBackground(colorFondo);
     }
 
     public JButton getBtnRegistrarse() {
@@ -127,6 +137,7 @@ public class Registro extends javax.swing.JFrame {
         fieldConfContrasenia = new javax.swing.JPasswordField();
         fieldUsuario = new javax.swing.JTextField();
         labelUsuario = new javax.swing.JLabel();
+        btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -135,9 +146,9 @@ public class Registro extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
         jLabel3.setText("Registro");
 
-        btnRegistrarse.setBackground(new java.awt.Color(45, 54, 72));
+        btnRegistrarse.setBackground(colorPrimario);
         btnRegistrarse.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnRegistrarse.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarse.setForeground(colorTexto);
         btnRegistrarse.setText("Registrarse");
         btnRegistrarse.setAlignmentX(0.5F);
         btnRegistrarse.setBorderPainted(false);
@@ -161,6 +172,20 @@ public class Registro extends javax.swing.JFrame {
         labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelUsuario.setText("Usuario");
 
+        btnAtras.setBackground(colorPrimario);
+        btnAtras.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnAtras.setForeground(colorTexto);
+        btnAtras.setText("Atras");
+        btnAtras.setAlignmentX(0.5F);
+        btnAtras.setBorderPainted(false);
+        btnAtras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAtras.setMargin(new java.awt.Insets(5, 14, 3, 14));
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,11 +193,16 @@ public class Registro extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(141, 141, 141)
+                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(labelConfContrasenia)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(labelContrasenia)
@@ -181,10 +211,7 @@ public class Registro extends javax.swing.JFrame {
                                 .addComponent(fieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(fieldConfContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelUsuario)
-                            .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jLabel3)))
+                            .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -209,7 +236,9 @@ public class Registro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldConfContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53))
         );
 
@@ -219,6 +248,10 @@ public class Registro extends javax.swing.JFrame {
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarseActionPerformed
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,6 +289,7 @@ public class Registro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnAtras;
     public javax.swing.JButton btnRegistrarse;
     public javax.swing.JTextField fieldCedula;
     public javax.swing.JPasswordField fieldConfContrasenia;

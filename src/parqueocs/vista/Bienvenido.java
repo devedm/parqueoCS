@@ -4,12 +4,8 @@
  */
 package parqueocs.vista;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-import javax.imageio.ImageIO;
+import java.awt.Color;
+import parqueocs.modelo.ColoresInterfaz;
 
 
 /**
@@ -21,10 +17,13 @@ public class Bienvenido extends javax.swing.JFrame {
     /**
      * Creates new form Bienvenido
      */
+    ColoresInterfaz c = new ColoresInterfaz();
+    
     public Bienvenido(){
         initComponents();
         setTitle("Sistema de Parqueo - Bienvenido");
         setLocationRelativeTo(null);
+        getContentPane().setBackground(c.getColorFondo());
     }    
 
     /**
@@ -40,19 +39,20 @@ public class Bienvenido extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnIniciarSesion = new javax.swing.JButton();
         labelTitulo = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(42, 132, 141));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(new java.awt.Color(42, 132, 141));
         setResizable(false);
 
-        btnRegistrarse.setBackground(new java.awt.Color(242, 203, 5));
+        btnRegistrarse.setBackground(c.getColorPrimario());
         btnRegistrarse.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btnRegistrarse.setForeground(new java.awt.Color(42, 132, 141));
+        btnRegistrarse.setForeground(c.getColorTexto());
         btnRegistrarse.setText("Registrarse");
         btnRegistrarse.setAlignmentX(0.5F);
+        btnRegistrarse.setBorder(null);
         btnRegistrarse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRegistrarse.setMargin(new java.awt.Insets(10, 24, 8, 24));
         btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
@@ -61,11 +61,12 @@ public class Bienvenido extends javax.swing.JFrame {
             }
         });
 
-        btnSalir.setBackground(new java.awt.Color(242, 203, 5));
+        btnSalir.setBackground(c.getColorPrimario());
         btnSalir.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(42, 132, 141));
+        btnSalir.setForeground(c.getColorTexto());
         btnSalir.setText("Salir");
         btnSalir.setAlignmentX(0.5F);
+        btnSalir.setBorder(null);
         btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSalir.setMargin(new java.awt.Insets(10, 24, 8, 24));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -74,11 +75,12 @@ public class Bienvenido extends javax.swing.JFrame {
             }
         });
 
-        btnIniciarSesion.setBackground(new java.awt.Color(242, 203, 5));
+        btnIniciarSesion.setBackground(c.getColorPrimario());
         btnIniciarSesion.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btnIniciarSesion.setForeground(new java.awt.Color(42, 132, 141));
+        btnIniciarSesion.setForeground(c.getColorTexto());
         btnIniciarSesion.setText("Iniciar Sesion");
         btnIniciarSesion.setAlignmentX(0.5F);
+        btnIniciarSesion.setBorder(null);
         btnIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnIniciarSesion.setMargin(new java.awt.Insets(10, 24, 8, 24));
         btnIniciarSesion.setMaximumSize(new java.awt.Dimension(200, 60));
@@ -91,34 +93,39 @@ public class Bienvenido extends javax.swing.JFrame {
         });
 
         labelTitulo.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
-        labelTitulo.setForeground(new java.awt.Color(242, 203, 5));
+        labelTitulo.setForeground(c.getColorTexto());
         labelTitulo.setText("Bienvenido");
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/logo-parqueo1.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(labelTitulo)
                     .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(109, Short.MAX_VALUE))
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logo))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
+                .addGap(72, 72, 72)
+                .addComponent(logo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                .addGap(101, 101, 101)
                 .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -176,6 +183,7 @@ public class Bienvenido extends javax.swing.JFrame {
     public javax.swing.JButton btnRegistrarse;
     public javax.swing.JButton btnSalir;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JLabel logo;
     // End of variables declaration//GEN-END:variables
 
 }

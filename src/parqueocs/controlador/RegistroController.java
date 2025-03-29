@@ -10,6 +10,7 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 import parqueocs.modelo.Consultas;
 import parqueocs.modelo.Usuario;
+import parqueocs.vista.Bienvenido;
 import parqueocs.vista.Registro;
 
 /**
@@ -24,12 +25,17 @@ public class RegistroController implements ActionListener{
         this.vista = vista;
         this.modelo = modelo;
         this.vista.btnRegistrarse.addActionListener(this);
+        this.vista.btnAtras.addActionListener(this);
+        
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == vista.btnRegistrarse){
             registrarUsuario();
+        }
+        if(e.getSource() == vista.btnAtras){
+            volver();
         }
     }
     
@@ -57,5 +63,9 @@ public class RegistroController implements ActionListener{
                 JOptionPane.showMessageDialog(vista.getRootPane(),"Error: desconocido vuelva a intentarlo");
             }
         }
+    }
+    
+    public void volver(){
+        vista.dispose();
     }
 }
