@@ -96,6 +96,7 @@ public class InicioSesion extends javax.swing.JFrame {
         labelTitulo = new javax.swing.JLabel();
         btnIniciarSesion = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
+        logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,14 +141,12 @@ public class InicioSesion extends javax.swing.JFrame {
             }
         });
 
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parqueocs/resources/Images/logo-parqueo1.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(labelTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,13 +160,24 @@ public class InicioSesion extends javax.swing.JFrame {
                     .addComponent(labelUsuario)
                     .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(labelTitulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(logo)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(51, 51, 51)
+                .addComponent(logo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTitulo)
-                .addGap(85, 85, 85)
+                .addGap(18, 18, 18)
                 .addComponent(labelUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,5 +246,6 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JLabel labelContrasenia;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JLabel labelUsuario;
+    private javax.swing.JLabel logo;
     // End of variables declaration//GEN-END:variables
 }

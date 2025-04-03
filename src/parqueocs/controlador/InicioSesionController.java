@@ -74,7 +74,7 @@ public class InicioSesionController implements ActionListener{
         Principal vistaPrincipal = new Principal();
         Consultas modelo = new Consultas();
         new PrincipalController(vistaPrincipal, modelo, usuario);
-        vistaPrincipal.setVisible(true);
+//        vistaPrincipal.setVisible(true);
         
         vista.setContentPane(vistaPrincipal.getContentPane());
         vista.revalidate();

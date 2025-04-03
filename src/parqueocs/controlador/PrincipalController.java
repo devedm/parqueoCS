@@ -35,6 +35,7 @@ public class PrincipalController implements ActionListener{
         this.vista.btnRegistrarVehiculo.addActionListener(this);
         this.vista.btnEliminarVehiculo.addActionListener(this);
         this.vista.btnParquear.addActionListener(this);
+        this.vista.btnRefrescar.addActionListener(this);
         llenarListaVehiculos(this.usuario);
         
     }
@@ -51,6 +52,9 @@ public class PrincipalController implements ActionListener{
             abrirParquear(usuario);
         }
         if(e.getSource() == vista.listParqueados){
+            llenarListaVehiculos(usuario);
+        }
+        if(e.getSource() == vista.btnRefrescar){
             llenarListaVehiculos(usuario);
         }
     }

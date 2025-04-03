@@ -5,6 +5,8 @@
 package parqueocs.vista;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import parqueocs.modelo.ColoresInterfaz;
 
 
@@ -24,6 +26,8 @@ public class Bienvenido extends javax.swing.JFrame {
         setTitle("Sistema de Parqueo - Bienvenido");
         setLocationRelativeTo(null);
         getContentPane().setBackground(c.getColorFondo());
+//        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo-parqueo1.png"));
+//        this.setIconImage(icono);
     }    
 
     /**
@@ -96,7 +100,7 @@ public class Bienvenido extends javax.swing.JFrame {
         labelTitulo.setForeground(c.getColorTexto());
         labelTitulo.setText("Bienvenido");
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/logo-parqueo1.png"))); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parqueocs/resources/Images/logo-parqueo1.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,13 +123,13 @@ public class Bienvenido extends javax.swing.JFrame {
                 .addComponent(logo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTitulo)
-                .addGap(101, 101, 101)
+                .addGap(18, 89, Short.MAX_VALUE)
                 .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         pack();
