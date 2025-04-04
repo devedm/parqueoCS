@@ -7,6 +7,8 @@ package parqueocs.modelo;
 import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,10 +104,10 @@ public class Consultas extends Conexion{
         String sql = "UPDATE vehiculo SET fecha=?, entradaHora=?, salidaHora=?, duracionMinutos=?  WHERE placa=?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setDate(2, java.sql.Date.valueOf(vehiculo.getFecha())); // fecha
-            ps.setTime(3, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // entradaHora
-            ps.setTime(4, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
-            ps.setInt(5, vehiculo.getDuracionMinutos()); // duracionMinutos
+            ps.setDate(1, java.sql.Date.valueOf(vehiculo.getFecha())); // fecha
+            ps.setTime(2, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // entradaHora
+            ps.setTime(3, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
+            ps.setInt(4, vehiculo.getDuracionMinutos()); // duracionMinutos
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -147,6 +149,31 @@ public class Consultas extends Conexion{
         return listaVehiculos;
     }
     
+    public Vehiculo buscarVehiculosPorPlaca(Vehiculo vehiculo){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        String sql = "SELECT * FROM vehiculo WHERE placa = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, vehiculo.getPlaca());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                return new Vehiculo(rs.getString("placa"),LocalDate.of(rs.getDate("fecha").getYear(), rs.getDate("fecha").getMonth(), rs.getDate("fecha").getDay()), LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), rs.getInt("duracionMinutos"));
+            }
+            return null;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return null;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
+    
     public boolean eliminarVehiculo(Vehiculo vehiculo){
         PreparedStatement ps = null;
         Connection con = getConexion();
@@ -168,4 +195,125 @@ public class Consultas extends Conexion{
             }
         }
     }
+    
+    public boolean registrarParqueo(Parqueo parqueo){
+        PreparedStatement ps = null;
+        Connection con = getConexion();
+        String sql = "Insert INTO parqueo (nombreParqueo) VALUES (?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, parqueo.getNombreParqueo()); // placa
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
+    
+    public boolean registrarEspacioParqueo(EspacioParqueo espacioParqueo){
+        PreparedStatement ps = null;
+        Connection con = getConexion();
+        String sql = "Insert INTO espacioParqueo (vehiculoPlaca, parqueoId) VALUES (?,?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, espacioParqueo.getPlacaVehiculo()); // placa
+            ps.setInt(2, espacioParqueo.getIdParqueo()); // Id Parqueo default 0
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
+    
+    public ArrayList<EspacioParqueo> buscarEspacioParqueoPorParqueo(Parqueo parqueo){
+        ArrayList listaEspaciosParqueo= new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        String sql = "SELECT * FROM EspacioParqueo WHERE parqueoId = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, parqueo.getId());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                EspacioParqueo espacioParqueo = new EspacioParqueo(rs.getInt("id"), rs.getString("vehiculoPlaca"), rs.getInt("parqueoId"));
+                listaEspaciosParqueo.add(espacioParqueo);
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+            return null;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return listaEspaciosParqueo;
+    }
+    
+    public EspacioParqueo buscarEspacioParqueoPorVehiculo(Vehiculo vehiculo){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        String sql = "SELECT * FROM EspacioParqueo WHERE vehiculoPlaca = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, vehiculo.getPlaca());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                return new EspacioParqueo(rs.getInt("id"), rs.getString("vehiculoPlaca"), rs.getInt("parqueoId"));
+            }
+            return null;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return null;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
+    
+    
+    
+    public boolean modificarEspacioParqueo(Vehiculo vehiculo){
+        PreparedStatement ps = null;
+        Connection con = getConexion();
+        String sql = "UPDATE vehiculo SET fecha=?, entradaHora=?, salidaHora=?, duracionMinutos=?  WHERE placa=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setDate(1, java.sql.Date.valueOf(vehiculo.getFecha())); // fecha
+            ps.setTime(2, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // entradaHora
+            ps.setTime(3, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
+            ps.setInt(4, vehiculo.getDuracionMinutos()); // duracionMinutos
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    } 
 }

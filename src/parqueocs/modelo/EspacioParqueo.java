@@ -12,24 +12,23 @@ import parqueocs.modelo.Vehiculo;
  */
 public class EspacioParqueo {
     private int id;
-    private Vehiculo vehiculoParqueado;
+    private String placaVehiculo;
+    private int idParqueo;
+
     
-    public EspacioParqueo(int id) {
+    public EspacioParqueo() {
+        this.idParqueo = 0;
+    }
+    
+    public EspacioParqueo(String placaVehiculo) {
+        this.placaVehiculo = placaVehiculo;
+        this.idParqueo = 0;
+    }
+
+    public EspacioParqueo(int id, String placaVehiculo, int idParqueo) {
         this.id = id;
-        this.vehiculoParqueado = null;
-    }
-
-    public EspacioParqueo(int id, Vehiculo vehiculoParqueado) {
-        this.id = id;
-        this.vehiculoParqueado = vehiculoParqueado;
-    }
-
-    public Vehiculo getVehiculoParqueado() {
-        return vehiculoParqueado;
-    }
-
-    public void setVehiculoParqueado(Vehiculo vehiculoParqueado) {
-        this.vehiculoParqueado = vehiculoParqueado;
+        this.placaVehiculo = placaVehiculo;
+        this.idParqueo = idParqueo;
     }
 
     public int getId() {
@@ -39,7 +38,22 @@ public class EspacioParqueo {
     public void setId(int id) {
         this.id = id;
     }
-    
+
+    public int getIdParqueo() {
+        return idParqueo;
+    }
+
+    public void setIdParqueo(int idParqueo) {
+        this.idParqueo = idParqueo;
+    }
+
+    public String getPlacaVehiculo() {
+        return placaVehiculo;
+    }
+
+    public void setPlacaVehiculo(String placaVehiculo) {
+        this.placaVehiculo = placaVehiculo;
+    }
     
     
 }

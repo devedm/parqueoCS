@@ -18,7 +18,6 @@ public class Vehiculo {
     private LocalTime entradaHora;
     private LocalTime salidaHora;
     private int duracionMinutos;
-    private int espacioParqueo;
 
     public Vehiculo(String placa) {
         this.placa = placa;
@@ -26,16 +25,14 @@ public class Vehiculo {
         this.entradaHora = LocalTime.now();
         this.salidaHora = LocalTime.now();
         this.duracionMinutos = 0;
-        this.espacioParqueo = 0;
     }
 
-    public Vehiculo(String placa, LocalDate fecha, LocalTime entradaHora, LocalTime salidaHora, int duracionMinutos, int espacioParqueo) {
+    public Vehiculo(String placa, LocalDate fecha, LocalTime entradaHora, LocalTime salidaHora, int duracionMinutos) {
         this.placa = placa;
         this.fecha = fecha;
         this.entradaHora = entradaHora;
         this.salidaHora = salidaHora;
         this.duracionMinutos = duracionMinutos;
-        this.espacioParqueo = espacioParqueo;
     }
 
     void calcularTiempo(){
@@ -98,14 +95,6 @@ public class Vehiculo {
 
     public void setDuracionMinutos(int duracionMinutos) {
         this.duracionMinutos = duracionMinutos;
-    }
-
-    public int getEspacioParqueo() {
-        return espacioParqueo;
-    }
-
-    public void setEspacioParqueo(int espacioParqueo) {
-        this.espacioParqueo = espacioParqueo;
     }
     
 }

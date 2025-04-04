@@ -42,7 +42,7 @@ public class BienvenidoController implements ActionListener{
     }   
 
     
-    private void abrirRegistro(){
+    public void abrirRegistro(){
         // Abre ls vista Registro
         Registro vistaRegistro = new Registro();
         Consultas modeloUsuario = new Consultas();
@@ -51,7 +51,7 @@ public class BienvenidoController implements ActionListener{
         vistaRegistro.setVisible(true);
     }
     
-    private void abrirInicioSesion(){
+    public void abrirInicioSesion(){
         // Abre ls vista Registro
         InicioSesion vistaInicioSesion = new InicioSesion();
         Consultas modeloUsuario = new Consultas();
@@ -60,7 +60,7 @@ public class BienvenidoController implements ActionListener{
         vistaInicioSesion.setVisible(true);
     }
     
-    private void exit(){
+    public void exit(){
         // Cierra ls vista Bienvenido
         vista.dispose();
     }
