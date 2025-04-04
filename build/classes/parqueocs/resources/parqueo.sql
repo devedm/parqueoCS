@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2025 at 07:15 AM
+-- Generation Time: Apr 04, 2025 at 03:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -33,6 +33,22 @@ CREATE TABLE `espacioparqueo` (
   `parqueoId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `espacioparqueo`
+--
+
+INSERT INTO `espacioparqueo` (`id`, `vehiculoPlaca`, `parqueoId`) VALUES
+(1, NULL, 1),
+(2, NULL, 1),
+(3, NULL, 1),
+(4, NULL, 1),
+(5, NULL, 1),
+(6, NULL, 1),
+(7, NULL, 1),
+(8, NULL, 1),
+(9, NULL, 1),
+(10, NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -40,8 +56,16 @@ CREATE TABLE `espacioparqueo` (
 --
 
 CREATE TABLE `parqueo` (
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `nombreParqueo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `parqueo`
+--
+
+INSERT INTO `parqueo` (`id`, `nombreParqueo`) VALUES
+(1, 'Parqueo Equipo 4');
 
 -- --------------------------------------------------------
 
@@ -60,6 +84,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`cedula`, `nombre`, `contrasenia`) VALUES
+(111444777, 'test', '123456789'),
 (123456789, 'mario moreno', '123456789');
 
 -- --------------------------------------------------------
@@ -74,9 +99,16 @@ CREATE TABLE `vehiculo` (
   `entradaHora` time DEFAULT NULL,
   `salidaHora` time DEFAULT NULL,
   `duracionMinutos` int(11) DEFAULT NULL,
-  `espacioParqueo` int(11) DEFAULT NULL,
   `cedulaUsuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `vehiculo`
+--
+
+INSERT INTO `vehiculo` (`placa`, `fecha`, `entradaHora`, `salidaHora`, `duracionMinutos`, `cedulaUsuario`) VALUES
+('als123', '2025-04-03', '16:48:26', '16:48:26', 0, 123456789),
+('brc123', '2025-03-28', '02:03:59', '02:03:59', 0, 123456789);
 
 --
 -- Indexes for dumped tables
@@ -107,8 +139,7 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `vehiculo`
   ADD PRIMARY KEY (`placa`),
-  ADD KEY `cedulaUsuario` (`cedulaUsuario`),
-  ADD KEY `espacioParqueoId` (`espacioParqueo`);
+  ADD KEY `cedulaUsuario` (`cedulaUsuario`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -118,13 +149,13 @@ ALTER TABLE `vehiculo`
 -- AUTO_INCREMENT for table `espacioparqueo`
 --
 ALTER TABLE `espacioparqueo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `parqueo`
 --
 ALTER TABLE `parqueo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -141,8 +172,7 @@ ALTER TABLE `espacioparqueo`
 -- Constraints for table `vehiculo`
 --
 ALTER TABLE `vehiculo`
-  ADD CONSTRAINT `cedulaUsuario` FOREIGN KEY (`cedulaUsuario`) REFERENCES `usuario` (`cedula`) ON DELETE CASCADE,
-  ADD CONSTRAINT `espacioParqueoId` FOREIGN KEY (`espacioParqueo`) REFERENCES `espacioparqueo` (`id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `cedulaUsuario` FOREIGN KEY (`cedulaUsuario`) REFERENCES `usuario` (`cedula`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
