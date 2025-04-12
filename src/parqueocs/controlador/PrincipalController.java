@@ -6,13 +6,15 @@ package parqueocs.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import parqueocs.modelo.Consultas;
+import parqueocs.modelo.EspacioParqueo;
+import parqueocs.modelo.Parqueo;
 import parqueocs.modelo.Usuario;
 import parqueocs.modelo.Vehiculo;
 import parqueocs.vista.Parquear;
@@ -36,7 +38,12 @@ public class PrincipalController implements ActionListener{
         this.vista.btnEliminarVehiculo.addActionListener(this);
         this.vista.btnParquear.addActionListener(this);
         this.vista.btnRefrescar.addActionListener(this);
+        this.vista.btnRefrescarParqueados.addActionListener(this);
+        
+        
         llenarListaVehiculos(this.usuario);
+        llenarListaParqueados(this.usuario);
+        limpiarEspacios();
         
     }
 
@@ -56,6 +63,10 @@ public class PrincipalController implements ActionListener{
         }
         if(e.getSource() == vista.btnRefrescar){
             llenarListaVehiculos(usuario);
+        }
+        if(e.getSource() == vista.btnRefrescarParqueados){
+            llenarListaParqueados(usuario);
+            limpiarEspacios();
         }
     }
     
@@ -88,6 +99,58 @@ public class PrincipalController implements ActionListener{
             myModel.addElement(auto.getPlaca());
         }
         vista.listVehiculos.setModel(myModel);
+    }
+    
+    public void llenarListaParqueados(Usuario usuario){
+        ArrayList<Vehiculo> listaVehiculos = modelo.buscarVehiculosUsuarioFull(usuario);
+        DefaultListModel<String> myModel = new DefaultListModel<>();
+        
+        for (Vehiculo vehiculo : listaVehiculos) {
+            if(estaParqueado(vehiculo)){
+                myModel.addElement(vehiculo.getPlaca() + " - Entrada: " + vehiculo.getEntradaHora().format(DateTimeFormatter.ISO_TIME) + " - Salida: " + vehiculo.getSalidaHora().format(DateTimeFormatter.ISO_TIME)); 
+                System.out.println(vehiculo.toString());
+            }
+        }
+                
+        vista.listParqueados.setModel(myModel);
+    }
+    
+    public boolean estaParqueado(Vehiculo vehiculoActual){
+        
+        LocalTime horaActual = LocalTime.now();
+        System.out.println("Hora Actual: " + horaActual.format(DateTimeFormatter.ISO_TIME));
+        System.out.println("Hora Salida Vehiculo: " + vehiculoActual.getSalidaHora());
+        
+        LocalDate fechaActual = LocalDate.now();
+        System.out.println("Fecha Actual" + fechaActual);
+        System.out.println("Fecha Vehiculo" + vehiculoActual.getFecha());
+        
+        if(vehiculoActual.getFecha().equals(fechaActual)){
+                if(horaActual.isAfter(vehiculoActual.getEntradaHora())){
+                    if(!horaActual.isAfter(vehiculoActual.getSalidaHora())){
+                        System.out.println(vehiculoActual.getPlaca() + " esta parqueado actualmente!");
+                        return true;
+                    }
+                }
+            }
+        return false;
+    }
+    
+    public void limpiarEspacios(){
+        ArrayList<EspacioParqueo> listaEspacios = modelo.buscarEspacioParqueoPorParqueo(new Parqueo(1));
+
+        for (EspacioParqueo espacio : listaEspacios) {
+            if(espacio.getPlacaVehiculo() != null){
+                Vehiculo auto = new Vehiculo(espacio.getPlacaVehiculo());
+                Vehiculo autoActual = modelo.buscarVehiculosPorPlaca(auto);
+                System.out.println("Vehiculo traido de consulta en Limpiar: " + autoActual.getSalidaHora());
+                if(!estaParqueado(autoActual)){
+                    EspacioParqueo espacioNuevo = new EspacioParqueo(espacio.getId(), null, 1);
+                    modelo.modificarEspacioParqueo(espacioNuevo);
+                }
+
+            }
+        }
     }
 
     public void abrirParquear(Usuario usuario){

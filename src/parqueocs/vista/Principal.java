@@ -119,6 +119,7 @@ public class Principal extends javax.swing.JFrame {
         listVehiculos = new javax.swing.JList<>();
         btnParquear = new javax.swing.JButton();
         btnRefrescar = new javax.swing.JButton();
+        btnRefrescarParqueados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -173,6 +174,8 @@ public class Principal extends javax.swing.JFrame {
 
         btnRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parqueocs/resources/actualizar.png"))); // NOI18N
 
+        btnRefrescarParqueados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parqueocs/resources/actualizar.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,7 +184,10 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelParqueados)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelParqueados)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRefrescarParqueados))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +217,9 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnParquear)
                 .addGap(44, 44, 44)
-                .addComponent(labelParqueados)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelParqueados)
+                    .addComponent(btnRefrescarParqueados))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73))
@@ -271,6 +279,7 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JButton btnEliminarVehiculo;
     public javax.swing.JButton btnParquear;
     public javax.swing.JButton btnRefrescar;
+    public javax.swing.JButton btnRefrescarParqueados;
     public javax.swing.JButton btnRegistrarVehiculo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

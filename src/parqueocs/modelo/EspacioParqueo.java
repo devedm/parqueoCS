@@ -24,7 +24,13 @@ public class EspacioParqueo {
         this.placaVehiculo = placaVehiculo;
         this.idParqueo = 0;
     }
-
+    
+    public EspacioParqueo(int id) {
+        this.id = id;
+        this.placaVehiculo = "";
+        this.idParqueo = 0;
+    }
+    
     public EspacioParqueo(int id, String placaVehiculo, int idParqueo) {
         this.id = id;
         this.placaVehiculo = placaVehiculo;

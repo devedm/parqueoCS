@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2025 at 03:29 AM
+-- Generation Time: Apr 12, 2025 at 05:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -85,7 +85,9 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`cedula`, `nombre`, `contrasenia`) VALUES
 (111444777, 'test', '123456789'),
-(123456789, 'mario moreno', '123456789');
+(115830244, 'Eddy', '123456789'),
+(123456789, 'mario moreno', '123456789'),
+(369258147, 'Elkin', '369258147');
 
 -- --------------------------------------------------------
 
@@ -108,7 +110,11 @@ CREATE TABLE `vehiculo` (
 
 INSERT INTO `vehiculo` (`placa`, `fecha`, `entradaHora`, `salidaHora`, `duracionMinutos`, `cedulaUsuario`) VALUES
 ('als123', '2025-04-03', '16:48:26', '16:48:26', 0, 123456789),
-('brc123', '2025-03-28', '02:03:59', '02:03:59', 0, 123456789);
+('brc123', '2025-03-28', '02:03:59', '02:03:59', 0, 123456789),
+('brc429', '2025-04-11', '21:00:00', '21:45:00', 45, 115830244),
+('hjs123', '2025-04-03', '20:03:55', '20:03:55', 0, 369258147),
+('iaj029', '2025-04-11', '19:00:00', '21:30:00', 150, 115830244),
+('oks123', '2025-04-03', '20:03:42', '20:03:42', 0, 369258147);
 
 --
 -- Indexes for dumped tables

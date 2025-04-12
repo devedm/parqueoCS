@@ -108,6 +108,7 @@ public class Consultas extends Conexion{
             ps.setTime(2, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // entradaHora
             ps.setTime(3, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
             ps.setInt(4, vehiculo.getDuracionMinutos()); // duracionMinutos
+            ps.setString(5, vehiculo.getPlaca());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -134,6 +135,35 @@ public class Consultas extends Conexion{
             rs = ps.executeQuery();
             while(rs.next()){
                 Vehiculo vehiculo = new Vehiculo(rs.getString("placa"));
+                listaVehiculos.add(vehiculo);
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+            return null;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+        return listaVehiculos;
+    }
+    
+    public ArrayList<Vehiculo> buscarVehiculosUsuarioFull(Usuario usuario){
+        ArrayList listaVehiculos= new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        String sql = "SELECT * FROM vehiculo WHERE cedulaUsuario = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario.getCedula());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                String placa = rs.getString("placa");
+                Date fecha = rs.getDate("fecha");
+                Vehiculo vehiculo = new Vehiculo(placa , fecha.toLocalDate(), LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), rs.getInt("duracionMinutos"));
                 listaVehiculos.add(vehiculo);
             }
         } catch (SQLException e) {
@@ -244,7 +274,7 @@ public class Consultas extends Conexion{
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-        String sql = "SELECT * FROM EspacioParqueo WHERE parqueoId = ?";
+        String sql = "SELECT * FROM espacioparqueo WHERE parqueoId = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, parqueo.getId());
@@ -270,7 +300,7 @@ public class Consultas extends Conexion{
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-        String sql = "SELECT * FROM EspacioParqueo WHERE vehiculoPlaca = ?";
+        String sql = "SELECT * FROM espacioparqueo WHERE vehiculoPlaca = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, vehiculo.getPlaca());
@@ -291,18 +321,14 @@ public class Consultas extends Conexion{
         }
     }
     
-    
-    
-    public boolean modificarEspacioParqueo(Vehiculo vehiculo){
+    public boolean modificarEspacioParqueo(EspacioParqueo espacio){
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "UPDATE vehiculo SET fecha=?, entradaHora=?, salidaHora=?, duracionMinutos=?  WHERE placa=?";
+        String sql = "UPDATE espacioparqueo SET vehiculoPlaca=?  WHERE id=?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setDate(1, java.sql.Date.valueOf(vehiculo.getFecha())); // fecha
-            ps.setTime(2, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // entradaHora
-            ps.setTime(3, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
-            ps.setInt(4, vehiculo.getDuracionMinutos()); // duracionMinutos
+            ps.setString(1, espacio.getPlacaVehiculo()); // Placa vehiculo Parqueado
+            ps.setInt(2, espacio.getId()); // id de espacio parqueo
             ps.execute();
             return true;
         } catch (SQLException e) {

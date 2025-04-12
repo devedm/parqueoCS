@@ -18,6 +18,10 @@ public class Parqueo {
         this.nombreParqueo = nombreParqueo;
     }
     
+    public Parqueo(int id) {
+        this.id = id;
+    }
+    
     public Parqueo(int id, String nombreParqueo) {
         this.id = id;
         this.nombreParqueo = nombreParqueo;
