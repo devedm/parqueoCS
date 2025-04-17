@@ -13,9 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import parqueocs.modelo.Consultas;
 import parqueocs.modelo.EspacioParqueo;
 import parqueocs.modelo.Parqueo;
 import parqueocs.modelo.Usuario;
@@ -25,7 +24,7 @@ import parqueocs.vista.ModificarParqueo;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class ModificarParqueoController extends Controller implements ActionListener{
 
@@ -38,7 +37,8 @@ public class ModificarParqueoController extends Controller implements ActionList
         this.vista = vista;
         this.usuario = usuario;
         this.vista.btnParquear.addActionListener(this);
-        this.vista.btnFecha.addActionListener(this);
+        this.vista.btnCalendarioEntrada.addActionListener(this);
+        this.vista.btnCalendarioSalida.addActionListener(this);
         this.vista.btnCancelar.addActionListener(this);
         this.vista.comboHoraInicio.addActionListener(this);
         this.vista.comboMinutosInicio.addActionListener(this);
@@ -48,9 +48,7 @@ public class ModificarParqueoController extends Controller implements ActionList
         this.vista.comboAMPMSalida.addActionListener(this);
         
         cargarVehiculosCombo(usuario);
-        cargarFecha();
-        cargarMinutosYHoras();
-        cargarHora();
+        cargarEspaciosTiempo();
         cargarEspaciosParqueo();
         
         vistaInicializada = true;
@@ -62,8 +60,11 @@ public class ModificarParqueoController extends Controller implements ActionList
         if(e.getSource() == vista.btnParquear){
             parquearVehiculo();
         }
-        if(e.getSource() == vista.btnFecha){
-            abrirCalendario();
+        if(e.getSource() == vista.btnCalendarioEntrada){
+            abrirCalendario(vista.fieldFechaEntrada);
+        }
+        if(e.getSource() == vista.btnCalendarioSalida){
+            abrirCalendario(vista.fieldFechaSalida);
         }
         if(e.getSource() == vista.btnCancelar){
             exit();
@@ -81,25 +82,34 @@ public class ModificarParqueoController extends Controller implements ActionList
         
     }
     
-    public void abrirCalendario(){
+    public void abrirCalendario(JFormattedTextField field){
         Calendario vistaCalendario = new Calendario();
-        new CalendarioController(vistaCalendario, vista);
+        new CalendarioController(vistaCalendario, field);
         vistaCalendario.setVisible(true);
     }
     
     public void cargarVehiculosCombo(Usuario usuario){
         ArrayList<Vehiculo> listaVehiculos = getModelo().buscarVehiculosUsuario(usuario);
-        DefaultComboBoxModel<String> modelCombo =new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<String> modelCombo = new DefaultComboBoxModel<>();
         for(Vehiculo auto : listaVehiculos){
-            modelCombo.addElement(auto.getPlaca());
+            if (auto.isPorPagar()) {
+                modelCombo.addElement(auto.getPlaca());
+            }
         }
         vista.comboAuto.setModel(modelCombo);
     }
     
-    public void cargarFecha(){
+    public void cargarEspaciosTiempo(){
+        cargarFecha(vista.fieldFechaEntrada);
+        cargarFecha(vista.fieldFechaSalida);
+        cargarMinutosYHoras();
+        cargarHora();
+    }
+    
+    public void cargarFecha(JFormattedTextField field){
         LocalDate hoy = LocalDate.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        vista.fieldFecha.setText(hoy.format(formato));
+        field.setText(hoy.format(formato));
     }
     
     public void cargarHora(){
@@ -222,7 +232,9 @@ public class ModificarParqueoController extends Controller implements ActionList
         DefaultComboBoxModel<String> myModel = new DefaultComboBoxModel<>();
         
         for (EspacioParqueo espacio : listaEspacios) {
-            myModel.addElement(String.valueOf("Plaza #" + espacio.getId()));
+            if(espacio.getPlacaVehiculo() == null){
+                myModel.addElement(String.valueOf("Plaza #" + espacio.getId()));
+            }
         }
         vista.listEspacios.setModel(myModel);
         
@@ -232,7 +244,8 @@ public class ModificarParqueoController extends Controller implements ActionList
     public void parquearVehiculo(){
         // Variables
         String placaAuto;
-        LocalDate fecha;
+        LocalDate fechaEntrada;
+        LocalDate fechaSalida;
         LocalTime horaInicio;
         LocalTime horaSalida;
         int tiempoParqueado;
@@ -245,9 +258,14 @@ public class ModificarParqueoController extends Controller implements ActionList
         System.out.println("Auto seleccionado: " + placaAuto);
 
         // Fechas
-        String[] fechaList = vista.fieldFecha.getText().split("/");
-        fecha = LocalDate.of(Integer.valueOf(fechaList[2]), Integer.valueOf(fechaList[1]), Integer.valueOf(fechaList[0]));
-        System.out.println(fecha.format(DateTimeFormatter.ISO_DATE));
+        String[] fechaListEntrada = vista.fieldFechaEntrada.getText().split("/");
+        fechaEntrada = LocalDate.of(Integer.valueOf(fechaListEntrada[2]), Integer.valueOf(fechaListEntrada[1]), Integer.valueOf(fechaListEntrada[0]));
+        System.out.println(fechaEntrada.format(DateTimeFormatter.ISO_DATE));
+        
+        String[] fechaListSalida = vista.fieldFechaSalida.getText().split("/");
+        fechaSalida = LocalDate.of(Integer.valueOf(fechaListSalida[2]), Integer.valueOf(fechaListSalida[1]), Integer.valueOf(fechaListSalida[0]));
+        System.out.println(fechaSalida.format(DateTimeFormatter.ISO_DATE));
+        
 
         // Horas
         horaInicio = sacarHoras(vista.comboHoraInicio, vista.comboMinutosInicio, vista.comboAMPMInicio);
@@ -264,11 +282,12 @@ public class ModificarParqueoController extends Controller implements ActionList
             
         
         // Crear modelo vehiculo
-        vehiculo = new Vehiculo(placaAuto, fecha, horaInicio, horaSalida, tiempoParqueado, true);
+        vehiculo = new Vehiculo(placaAuto, fechaEntrada, fechaSalida, horaInicio, horaSalida, tiempoParqueado, true);
         
         // Crear modelo espacioParqueo
         
         EspacioParqueo espacio = new EspacioParqueo(idEspacioParqueo, placaAuto, 1);
+        
         
         if(getModelo().modificarVehiculo(vehiculo)){
             if(getModelo().modificarEspacioParqueo(espacio)){

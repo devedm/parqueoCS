@@ -13,9 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
-import parqueocs.modelo.Consultas;
 import parqueocs.modelo.EspacioParqueo;
 import parqueocs.modelo.Parqueo;
 import parqueocs.modelo.Usuario;
@@ -25,21 +24,20 @@ import parqueocs.vista.Parquear;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
-public class ParquearController implements ActionListener{
+public class ParquearController extends Controller implements ActionListener{
     private final Parquear vista;
-    private final Consultas modelo;
     private Usuario usuario;
     private Vehiculo vehiculo;
     private boolean vistaInicializada = false;
 
-    public ParquearController(Parquear vista, Consultas modelo, Usuario usuario) {
+    public ParquearController(Parquear vista, Usuario usuario) {
         this.vista = vista;
-        this.modelo = modelo;
         this.usuario = usuario;
         this.vista.btnParquear.addActionListener(this);
-        this.vista.btnFecha.addActionListener(this);
+        this.vista.btnCalendarioEntrada.addActionListener(this);
+        this.vista.btnCalendarioSalida.addActionListener(this);
         this.vista.btnCancelar.addActionListener(this);
         this.vista.comboHoraInicio.addActionListener(this);
         this.vista.comboMinutosInicio.addActionListener(this);
@@ -49,12 +47,12 @@ public class ParquearController implements ActionListener{
         this.vista.comboAMPMSalida.addActionListener(this);
         
         cargarVehiculosCombo(usuario);
-        cargarFecha();
-        cargarMinutosYHoras();
-        cargarHora();
+        cargarEspaciosTiempo();
         cargarEspaciosParqueo();
         
+        vista.setVisible(true);
         vistaInicializada = true;
+        
         
     }
     
@@ -63,8 +61,11 @@ public class ParquearController implements ActionListener{
         if(e.getSource() == vista.btnParquear){
             parquearVehiculo();
         }
-        if(e.getSource() == vista.btnFecha){
-            abrirCalendario();
+        if(e.getSource() == vista.btnCalendarioEntrada){
+            abrirCalendario(vista.fieldFechaEntrada);
+        }
+        if(e.getSource() == vista.btnCalendarioSalida){
+            abrirCalendario(vista.fieldFechaSalida);
         }
         if(e.getSource() == vista.btnCancelar){
             exit();
@@ -82,14 +83,14 @@ public class ParquearController implements ActionListener{
         
     }
     
-    public void abrirCalendario(){
+    public void abrirCalendario(JFormattedTextField field){
         Calendario vistaCalendario = new Calendario();
-        new CalendarioController(vistaCalendario, vista);
+        new CalendarioController(vistaCalendario, field);
         vistaCalendario.setVisible(true);
     }
     
     public void cargarVehiculosCombo(Usuario usuario){
-        ArrayList<Vehiculo> listaVehiculos = modelo.buscarVehiculosUsuario(usuario);
+        ArrayList<Vehiculo> listaVehiculos = getModelo().buscarVehiculosUsuario(usuario);
         DefaultComboBoxModel<String> modelCombo =new DefaultComboBoxModel<>();
         for(Vehiculo auto : listaVehiculos){
             modelCombo.addElement(auto.getPlaca());
@@ -97,10 +98,17 @@ public class ParquearController implements ActionListener{
         vista.comboAuto.setModel(modelCombo);
     }
     
-    public void cargarFecha(){
+    public void cargarEspaciosTiempo(){
+        cargarFecha(vista.fieldFechaEntrada);
+        cargarFecha(vista.fieldFechaSalida);
+        cargarMinutosYHoras();
+        cargarHora();
+    }
+    
+    public void cargarFecha(JFormattedTextField field){
         LocalDate hoy = LocalDate.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        vista.fieldFecha.setText(hoy.format(formato));
+        field.setText(hoy.format(formato));
     }
     
     public void cargarHora(){
@@ -179,27 +187,39 @@ public class ParquearController implements ActionListener{
     }
     
     public Duration validarHora(){
-        // validar que la hora de inicio sea antes que la hora de salida
+        try {
+        // Parse fechas
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaEntrada = LocalDate.parse(vista.fieldFechaEntrada.getText(), formatoFecha);
+        LocalDate fechaSalida = LocalDate.parse(vista.fieldFechaSalida.getText(), formatoFecha);
+
+        // Parse horas
         LocalTime horaInicio = sacarHoras(vista.comboHoraInicio, vista.comboMinutosInicio, vista.comboAMPMInicio);
         LocalTime horaSalida = sacarHoras(vista.comboHoraSalida, vista.comboMinutosSalida, vista.comboAMPMSalida);
-        if(horaInicio.isBefore(horaSalida)){
-            if(!(horaInicio.equals(horaSalida))){
-                return Duration.between(horaInicio, horaSalida);
-            } else {
-                JOptionPane.showMessageDialog(null, "ERROR: hora salida y hora entrada son iguales","Error", JOptionPane.ERROR_MESSAGE);
-                return null;
-            }
+
+        // Unificar en LocalDateTime
+        var dateTimeEntrada = fechaEntrada.atTime(horaInicio);
+        var dateTimeSalida = fechaSalida.atTime(horaSalida);
+
+        // Validación
+        if (dateTimeEntrada.isBefore(dateTimeSalida)) {
+            return Duration.between(dateTimeEntrada, dateTimeSalida);
         } else {
-            JOptionPane.showMessageDialog(null, "Error: hora de inicio no es antes de la hora de salida","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR: Fecha/hora de inicio debe ser anterior a la de salida.", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "ERROR al validar fechas u horas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
     }
     
     
     public void cargarTiempo(){
         Duration duracion = validarHora();
-        if(duracion != null){
-            vista.labelTiempo.setText("Tiempo = " + duracion.toMinutes() + "min");
+        if (duracion != null) {
+            long minutos = duracion.toMinutes();
+            vista.labelTiempo.setText("Tiempo = " + minutos + " min");
         }
 
     }
@@ -219,7 +239,7 @@ public class ParquearController implements ActionListener{
     }
     
     public void cargarEspaciosParqueo(){
-        ArrayList<EspacioParqueo> listaEspacios = modelo.buscarEspacioParqueoPorParqueo(new Parqueo(1));
+        ArrayList<EspacioParqueo> listaEspacios = getModelo().buscarEspacioParqueoPorParqueo(new Parqueo(1));
         DefaultComboBoxModel<String> myModel = new DefaultComboBoxModel<>();
         
         for (EspacioParqueo espacio : listaEspacios) {
@@ -235,7 +255,8 @@ public class ParquearController implements ActionListener{
     public void parquearVehiculo(){
         // Variables
         String placaAuto;
-        LocalDate fecha;
+        LocalDate fechaEntrada;
+        LocalDate fechaSalida;
         LocalTime horaInicio;
         LocalTime horaSalida;
         int tiempoParqueado;
@@ -248,10 +269,14 @@ public class ParquearController implements ActionListener{
         System.out.println("Auto seleccionado: " + placaAuto);
 
         // Fechas
-        String[] fechaList = vista.fieldFecha.getText().split("/");
-        fecha = LocalDate.of(Integer.valueOf(fechaList[2]), Integer.valueOf(fechaList[1]), Integer.valueOf(fechaList[0]));
-        System.out.println(fecha.format(DateTimeFormatter.ISO_DATE));
-
+        String[] fechaListEntrada = vista.fieldFechaEntrada.getText().split("/");
+        fechaEntrada = LocalDate.of(Integer.valueOf(fechaListEntrada[2]), Integer.valueOf(fechaListEntrada[1]), Integer.valueOf(fechaListEntrada[0]));
+        System.out.println(fechaEntrada.format(DateTimeFormatter.ISO_DATE));
+        
+        String[] fechaListSalida = vista.fieldFechaSalida.getText().split("/");
+        fechaSalida = LocalDate.of(Integer.valueOf(fechaListSalida[2]), Integer.valueOf(fechaListSalida[1]), Integer.valueOf(fechaListSalida[0]));
+        System.out.println(fechaSalida.format(DateTimeFormatter.ISO_DATE));
+        
         // Horas
         horaInicio = sacarHoras(vista.comboHoraInicio, vista.comboMinutosInicio, vista.comboAMPMInicio);
         horaSalida = sacarHoras(vista.comboHoraSalida, vista.comboMinutosSalida, vista.comboAMPMSalida);
@@ -267,14 +292,15 @@ public class ParquearController implements ActionListener{
             
         
         // Crear modelo vehiculo
-        vehiculo = new Vehiculo(placaAuto, fecha, horaInicio, horaSalida, tiempoParqueado, true);
+        vehiculo = new Vehiculo(placaAuto, fechaEntrada, fechaSalida, horaInicio, horaSalida, tiempoParqueado, true);
         
         // Crear modelo espacioParqueo
         
         EspacioParqueo espacio = new EspacioParqueo(idEspacioParqueo, placaAuto, 1);
         
-        if(modelo.modificarVehiculo(vehiculo)){
-            if(modelo.modificarEspacioParqueo(espacio)){
+        
+        if(getModelo().modificarVehiculo(vehiculo)){
+            if(getModelo().modificarEspacioParqueo(espacio)){
                 JOptionPane.showMessageDialog(vista.getRootPane(),"Se ha parqueado el vehiculo " + vehiculo.getPlaca() + " en el espacio #" + espacio.getId() + " correctamente!");
                 exit();
             } else {

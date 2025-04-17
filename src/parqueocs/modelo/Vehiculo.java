@@ -9,12 +9,13 @@ import java.time.LocalTime;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class Vehiculo {
     
     private String placa;
-    private LocalDate fecha;
+    private LocalDate fechaEntrada;
+    private LocalDate fechaSalida;
     private LocalTime entradaHora;
     private LocalTime salidaHora;
     private int duracionMinutos;
@@ -22,16 +23,18 @@ public class Vehiculo {
 
     public Vehiculo(String placa) {
         this.placa = placa;
-        this.fecha = LocalDate.now();
+        this.fechaEntrada = LocalDate.now();
+        this.fechaSalida = LocalDate.now();
         this.entradaHora = LocalTime.now();
         this.salidaHora = LocalTime.now();
         this.duracionMinutos = 0;
         this.porPagar = false;
     }
 
-    public Vehiculo(String placa, LocalDate fecha, LocalTime entradaHora, LocalTime salidaHora, int duracionMinutos, boolean porPagar) {
+    public Vehiculo(String placa, LocalDate fechaEntrada, LocalDate fechaSalida, LocalTime entradaHora, LocalTime salidaHora, int duracionMinutos, boolean porPagar) {
         this.placa = placa;
-        this.fecha = fecha;
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
         this.entradaHora = entradaHora;
         this.salidaHora = salidaHora;
         this.duracionMinutos = duracionMinutos;
@@ -44,14 +47,6 @@ public class Vehiculo {
 
     public void setPlaca(String placa) {
         this.placa = placa;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
     }
 
     public LocalTime getEntradaHora() {
@@ -84,6 +79,22 @@ public class Vehiculo {
 
     public void setPorPagar(boolean porPagar) {
         this.porPagar = porPagar;
+    }
+
+    public LocalDate getFechaEntrada() {
+        return fechaEntrada;
+    }
+
+    public void setFechaEntrada(LocalDate fechaEntrada) {
+        this.fechaEntrada = fechaEntrada;
+    }
+
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
     
     

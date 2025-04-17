@@ -6,7 +6,7 @@ package parqueocs.vista;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class PagarYSalir extends javax.swing.JFrame {
 
@@ -36,48 +36,101 @@ public class PagarYSalir extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         comboAuto = new javax.swing.JComboBox<>();
         btnPagar = new javax.swing.JButton();
+        labelPlaca = new javax.swing.JLabel();
+        labelSalida = new javax.swing.JLabel();
+        labelEntrada = new javax.swing.JLabel();
+        labelTiempoParqueado = new javax.swing.JLabel();
+        labelDetalles = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         labelTitulo.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
-        labelTitulo.setText("Parquear");
+        labelTitulo.setForeground(colores.getColorTexto());
+        labelTitulo.setText("Pagar Parqueo");
 
+        jLabel1.setForeground(colores.getColorTexto());
         jLabel1.setText("Auto");
 
-        comboAuto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboAuto.setBackground(colores.getColorSecundario());
+        comboAuto.setForeground(colores.getColorTexto());
+        comboAuto.setPreferredSize(tamanios.FIELD_GRANDE);
 
         btnPagar.setBackground(colores.getColorPrimario());
         btnPagar.setForeground(colores.getColorTexto());
         btnPagar.setText("Pagar");
 
+        labelPlaca.setForeground(colores.getColorTexto());
+        labelPlaca.setText("Placa: ");
+
+        labelSalida.setForeground(colores.getColorTexto());
+        labelSalida.setText("Salida: ");
+
+        labelEntrada.setForeground(colores.getColorTexto());
+        labelEntrada.setText("Entrada: ");
+
+        labelTiempoParqueado.setForeground(colores.getColorTexto());
+        labelTiempoParqueado.setText("Tiempo Parqueado: ");
+
+        labelDetalles.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelDetalles.setForeground(colores.getColorTexto());
+        labelDetalles.setText("Detalles");
+
+        btnCancelar.setBackground(colores.getColorPrimario());
+        btnCancelar.setForeground(colores.getColorTexto());
+        btnCancelar.setText("Cancelar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(152, Short.MAX_VALUE)
-                .addComponent(labelTitulo)
-                .addGap(149, 149, 149))
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(comboAuto, 0, 342, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(labelDetalles))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
+                                .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelTiempoParqueado)
+                            .addComponent(labelSalida)
+                            .addComponent(labelEntrada)
+                            .addComponent(labelPlaca)
+                            .addComponent(jLabel1)
+                            .addComponent(comboAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(labelTitulo)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(45, 45, 45)
                 .addComponent(labelTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
-                .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
+                .addComponent(comboAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(labelDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(labelPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelEntrada)
+                .addGap(18, 18, 18)
+                .addComponent(labelSalida)
+                .addGap(18, 18, 18)
+                .addComponent(labelTiempoParqueado)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -119,9 +172,15 @@ public class PagarYSalir extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnPagar;
     public javax.swing.JComboBox<String> comboAuto;
     private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel labelDetalles;
+    public javax.swing.JLabel labelEntrada;
+    public javax.swing.JLabel labelPlaca;
+    public javax.swing.JLabel labelSalida;
+    public javax.swing.JLabel labelTiempoParqueado;
     private javax.swing.JLabel labelTitulo;
     // End of variables declaration//GEN-END:variables
 }

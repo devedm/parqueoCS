@@ -9,59 +9,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import parqueocs.modelo.Consultas;
-import parqueocs.modelo.Vehiculo;
-import parqueocs.vista.Bienvenido;
 import parqueocs.vista.Calendario;
-import parqueocs.vista.ModificarParqueo;
-import parqueocs.vista.Parquear;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class CalendarioController implements ActionListener{
     private final Calendario vista;
-    private Parquear vistaParquear;
-    private ModificarParqueo vistaModificarParqueo;
+    private JFormattedTextField field;
 
-    public CalendarioController(Calendario vista, Parquear vistaParquear) {
+    public CalendarioController(Calendario vista, JFormattedTextField field) {
         this.vista = vista;
-        this.vistaParquear = vistaParquear;
-        llenarMes();
-        llenarAnio();
-        llenarDias();
+        this.field = field;
+        llenarMes(vista.comboMes);
+        llenarAnio(vista.comboAnio);
+        llenarDias(vista.tablaDias, vista.comboMes, vista.comboAnio);
         vista.comboMes.addActionListener(this);
         vista.comboAnio.addActionListener(this);
         vista.tablaDias.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                seleccionarFechaParquear();
-            }
-        });
-        
-    }
-    
-    public CalendarioController(Calendario vista, ModificarParqueo vistaModificarParqueo) {
-        this.vista = vista;
-        this.vistaModificarParqueo = vistaModificarParqueo;
-        llenarMes();
-        llenarAnio();
-        llenarDias();
-        vista.comboMes.addActionListener(this);
-        vista.comboAnio.addActionListener(this);
-        vista.tablaDias.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                seleccionarFechaModificar();
+                seleccionarFecha();
             }
         });
         
@@ -70,43 +46,38 @@ public class CalendarioController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == vista.comboMes || e.getSource() == vista.comboAnio){
-            llenarDias();
+            llenarDias(vista.tablaDias, vista.comboMes, vista.comboAnio);
         }
         if(e.getSource() == vista.tablaDias){
-            if(vistaModificarParqueo == null){
-                seleccionarFechaParquear();
-            } else {
-                seleccionarFechaModificar();
-            }
-            
+            seleccionarFecha();
         }
     }
     
     
     
-    public void llenarMes(){
+    public void llenarMes(JComboBox combo){
         String[] listaMeses = {"enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"};
         DefaultComboBoxModel<String> myModel = new DefaultComboBoxModel<>(listaMeses);
-        vista.comboMes.setModel(myModel);
+        combo.setModel(myModel);
         
         LocalDate fechaActual = LocalDate.now();
-        vista.comboMes.setSelectedIndex(fechaActual.getMonthValue() - 1);
+        combo.setSelectedIndex(fechaActual.getMonthValue() - 1);
     }
     
-    public void llenarAnio(){
+    public void llenarAnio(JComboBox combo){
         DefaultComboBoxModel<String> myModel = new DefaultComboBoxModel<>();
         for (int i = 2025; i <= 2035; i++) {
             myModel.addElement(String.valueOf(i));
         }
-        vista.comboAnio.setModel(myModel);
+        combo.setModel(myModel);
         
         LocalDate fechaActual = LocalDate.now();
-        vista.comboAnio.setSelectedItem(String.valueOf(fechaActual.getYear()));
+        combo.setSelectedItem(String.valueOf(fechaActual.getYear()));
     }
     
-    public void llenarDias(){
-        int mes = vista.comboMes.getSelectedIndex() + 1; // Enero = 1, ... Diciembre = 12
-        int anio = Integer.parseInt((String) vista.comboAnio.getSelectedItem());
+    public void llenarDias(JTable diasTabla, JComboBox mesCombo, JComboBox anioCombo){
+        int mes = mesCombo.getSelectedIndex() + 1; // Enero = 1, ... Diciembre = 12
+        int anio = Integer.parseInt((String) anioCombo.getSelectedItem());
         
         // Informacion del mes
         LocalDate fecha = LocalDate.of(anio, mes, 1);
@@ -129,10 +100,10 @@ public class CalendarioController implements ActionListener{
             }
             modelo.addRow(semana);
         }
-        vista.tablaDias.setModel(modelo);
+        diasTabla.setModel(modelo);
     }
     
-    public void seleccionarFechaParquear(){
+    public void seleccionarFecha(){
         int mes = vista.comboMes.getSelectedIndex() + 1; // Enero = 1, ... Diciembre = 12
         int anio = Integer.parseInt((String) vista.comboAnio.getSelectedItem());
         
@@ -141,21 +112,13 @@ public class CalendarioController implements ActionListener{
         int dia = (int) vista.tablaDias.getValueAt(row, col);
         LocalDate fecha = LocalDate.of(anio, mes, dia);
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        vistaParquear.fieldFecha.setText(fecha.format(formato));
-        vista.dispose();
+        field.setText(fecha.format(formato));
+        exit();
     }   
     
-    public void seleccionarFechaModificar(){
-        int mes = vista.comboMes.getSelectedIndex() + 1; // Enero = 1, ... Diciembre = 12
-        int anio = Integer.parseInt((String) vista.comboAnio.getSelectedItem());
-        
-        int col = vista.tablaDias.getSelectedColumn();
-        int row = vista.tablaDias.getSelectedRow();
-        int dia = (int) vista.tablaDias.getValueAt(row, col);
-        LocalDate fecha = LocalDate.of(anio, mes, dia);
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        vistaModificarParqueo.fieldFecha.setText(fecha.format(formato));
+    public void exit(){
+        // Cierra la vista
         vista.dispose();
-    } 
+    }
 }
 

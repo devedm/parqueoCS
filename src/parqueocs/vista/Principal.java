@@ -12,94 +12,24 @@ import parqueocs.vista.InicioSesion;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class Principal extends javax.swing.JFrame {
 
     /**
      * Creates new form Principal
      */
+    
+    ColoresInterfaz colores = new ColoresInterfaz();
+    TamaniosInterfaz tamanios = new TamaniosInterfaz();
+    
     public Principal() {
         setContentPane(new Fondo());
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Sistema de Parqueo - Principal");
     }
-
-    public JButton getBtnEditarVehiculo() {
-        return btnEliminarVehiculo;
-    }
-
-    public void setBtnEditarVehiculo(JButton btnEditarVehiculo) {
-        this.btnEliminarVehiculo = btnEditarVehiculo;
-    }
-
-    public JButton getBtnParquear() {
-        return btnParquear;
-    }
-
-    public void setBtnParquear(JButton btnParquear) {
-        this.btnParquear = btnParquear;
-    }
-
-    public JButton getBtnRegistrarVehiculo() {
-        return btnRegistrarVehiculo;
-    }
-
-    public void setBtnRegistrarVehiculo(JButton btnRegistrarVehiculo) {
-        this.btnRegistrarVehiculo = btnRegistrarVehiculo;
-    }
-
-    public JScrollPane getjScrollPane1() {
-        return jScrollPane1;
-    }
-
-    public void setjScrollPane1(JScrollPane jScrollPane1) {
-        this.jScrollPane1 = jScrollPane1;
-    }
-
-    public JScrollPane getjScrollPane2() {
-        return jScrollPane2;
-    }
-
-    public void setjScrollPane2(JScrollPane jScrollPane2) {
-        this.jScrollPane2 = jScrollPane2;
-    }
-
-    public JLabel getLabelParqueados() {
-        return labelParqueados;
-    }
-
-    public void setLabelParqueados(JLabel labelParqueados) {
-        this.labelParqueados = labelParqueados;
-    }
-
-    public JLabel getLabelTitulo1() {
-        return labelTitulo1;
-    }
-
-    public void setLabelTitulo1(JLabel labelTitulo1) {
-        this.labelTitulo1 = labelTitulo1;
-    }
-
-    public JList<String> getListParqueados() {
-        return listParqueados;
-    }
-
-    public void setListParqueados(JList<String> listParqueados) {
-        this.listParqueados = listParqueados;
-    }
-
-    public JList<String> getListVehiculos() {
-        return listVehiculos;
-    }
-
-    public void setListVehiculos(JList<String> listVehiculos) {
-        this.listVehiculos = listVehiculos;
-    }
-
-
-    
+  
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,16 +54,19 @@ public class Principal extends javax.swing.JFrame {
         btnPagar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelParqueados.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
-        labelParqueados.setText("Parqueados");
+        labelParqueados.setText("Autos Parqueados");
 
         labelTitulo1.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
-        labelTitulo1.setText("Autos");
+        labelTitulo1.setText("Todos los Autos");
 
+        btnRegistrarVehiculo.setBackground(colores.getColorPrimario());
         btnRegistrarVehiculo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnRegistrarVehiculo.setForeground(colores.getColorTexto());
         btnRegistrarVehiculo.setText("Nuevo Vehiculo");
         btnRegistrarVehiculo.setAlignmentX(0.5F);
         btnRegistrarVehiculo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -145,7 +78,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnEliminarVehiculo.setBackground(colores.getColorPrimario());
         btnEliminarVehiculo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnEliminarVehiculo.setForeground(colores.getColorTexto());
         btnEliminarVehiculo.setText("Eliminar Vehiculo");
         btnEliminarVehiculo.setAlignmentX(0.5F);
         btnEliminarVehiculo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -156,17 +91,18 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        listParqueados.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        listParqueados.setSelectionBackground(colores.getColorSecundario());
+        listParqueados.setSelectionForeground(colores.getColorBordes());
         jScrollPane1.setViewportView(listParqueados);
 
         listVehiculos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listVehiculos.setSelectionBackground(colores.getColorSecundario());
+        listVehiculos.setSelectionForeground(colores.getColorBordes());
         jScrollPane2.setViewportView(listVehiculos);
 
+        btnParquear.setBackground(colores.getColorPrimario());
         btnParquear.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnParquear.setForeground(colores.getColorTexto());
         btnParquear.setText("Parquear");
         btnParquear.setAlignmentX(0.5F);
         btnParquear.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -177,10 +113,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnRefrescar.setBackground(colores.getColorPrimario());
+        btnRefrescar.setForeground(colores.getColorTexto());
         btnRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parqueocs/resources/actualizar.png"))); // NOI18N
 
+        btnRefrescarParqueados.setBackground(colores.getColorPrimario());
+        btnRefrescarParqueados.setForeground(colores.getColorTexto());
         btnRefrescarParqueados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parqueocs/resources/actualizar.png"))); // NOI18N
 
+        btnPagar.setBackground(colores.getColorPrimario());
+        btnPagar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnPagar.setForeground(colores.getColorTexto());
         btnPagar.setText("Salir y Pagar");
         btnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,8 +131,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnModificar.setBackground(colores.getColorPrimario());
+        btnModificar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnModificar.setForeground(colores.getColorTexto());
         btnModificar.setText("Modificar Tiempo");
 
+        btnCerrarSesion.setBackground(colores.getColorPrimario());
+        btnCerrarSesion.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnCerrarSesion.setForeground(colores.getColorTexto());
         btnCerrarSesion.setText("Cerrar Sesion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,65 +146,63 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelParqueados)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnRefrescarParqueados))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnEliminarVehiculo)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnRefrescar))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(labelTitulo1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnCerrarSesion))
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(btnParquear, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminarVehiculo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRefrescar))
+                    .addComponent(jScrollPane2)
+                    .addComponent(labelTitulo1)
+                    .addComponent(btnParquear, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelParqueados)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
                         .addComponent(btnModificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPagar)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRefrescarParqueados))
+                    .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelTitulo1)
-                    .addComponent(btnCerrarSesion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRefrescar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addComponent(labelTitulo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnParquear)
-                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelParqueados)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEliminarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnParquear)
+                        .addGap(30, 30, 30)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelParqueados))
+                    .addComponent(btnRefrescar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnModificar)
                     .addComponent(btnRefrescarParqueados))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPagar)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPagar)
-                    .addComponent(btnModificar))
-                .addGap(28, 28, 28))
+                .addComponent(btnCerrarSesion)
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -323,6 +270,7 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JButton btnRegistrarVehiculo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelParqueados;
     private javax.swing.JLabel labelTitulo1;
     public javax.swing.JList<String> listParqueados;

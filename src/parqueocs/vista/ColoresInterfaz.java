@@ -8,7 +8,7 @@ import java.awt.Color;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class ColoresInterfaz {
     private Color colorPrimario;

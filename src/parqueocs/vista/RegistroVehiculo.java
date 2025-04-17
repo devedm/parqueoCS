@@ -10,14 +10,18 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class RegistroVehiculo extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistroVehiculo
      */
+    ColoresInterfaz colores = new ColoresInterfaz();
+    TamaniosInterfaz tamanios = new TamaniosInterfaz();
+    
     public RegistroVehiculo() {
+        setContentPane(new Fondo());
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Sistema de Parqueo - Registro Vehiculo");
@@ -36,28 +40,48 @@ public class RegistroVehiculo extends javax.swing.JFrame {
         labelPlaca = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnRegistrarVehiculo = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        labelPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelPlaca.setFont(tamanios.FUENTE_LABEL_NORMAL);
         labelPlaca.setText("Placa");
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
         jLabel3.setText("Registro Vehiculo");
 
-        btnRegistrarVehiculo.setBackground(new java.awt.Color(45, 54, 72));
-        btnRegistrarVehiculo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnRegistrarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarVehiculo.setBackground(colores.getColorPrimario());
+        btnRegistrarVehiculo.setFont(tamanios.FUENTE_BOTON_GRANDE);
+        btnRegistrarVehiculo.setForeground(colores.getColorTexto());
         btnRegistrarVehiculo.setText("Registrar Vehiculo");
         btnRegistrarVehiculo.setAlignmentX(0.5F);
         btnRegistrarVehiculo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRegistrarVehiculo.setMargin(new java.awt.Insets(5, 14, 3, 14));
+        btnRegistrarVehiculo.setPreferredSize(tamanios.BOTON_GRANDE_LARGO);
         btnRegistrarVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarVehiculoActionPerformed(evt);
             }
         });
+
+        btnCancelar.setBackground(colores.getColorPrimario());
+        btnCancelar.setFont(tamanios.FUENTE_BOTON_GRANDE);
+        btnCancelar.setForeground(colores.getColorTexto());
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setToolTipText("");
+        btnCancelar.setAlignmentX(0.5F);
+        btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCancelar.setMargin(new java.awt.Insets(5, 14, 3, 14));
+        btnCancelar.setPreferredSize(tamanios.BOTON_GRANDE);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parqueocs/resources/Images/logo-parqueo1.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,31 +90,42 @@ public class RegistroVehiculo extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(labelPlaca)
-                            .addComponent(fieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(80, 80, 80))))
+                            .addGap(292, 292, 292)))
+                    .addComponent(fieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(logo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jLabel3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addGap(28, 28, 28)
+                .addComponent(logo)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addGap(89, 89, 89)
+                .addGap(43, 43, 43)
                 .addComponent(labelPlaca)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
-                .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(76, 76, 76))
         );
 
         pack();
@@ -99,6 +134,10 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     private void btnRegistrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVehiculoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarVehiculoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,9 +175,11 @@ public class RegistroVehiculo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnRegistrarVehiculo;
     public javax.swing.JTextField fieldPlaca;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labelPlaca;
+    private javax.swing.JLabel logo;
     // End of variables declaration//GEN-END:variables
 }

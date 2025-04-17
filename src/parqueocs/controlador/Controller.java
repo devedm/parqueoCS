@@ -8,7 +8,7 @@ import parqueocs.modelo.Consultas;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class Controller {
     private Consultas modelo;

@@ -8,24 +8,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
-import parqueocs.modelo.Consultas;
 import parqueocs.modelo.Usuario;
-import parqueocs.vista.Bienvenido;
 import parqueocs.vista.Registro;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
-public class RegistroController implements ActionListener{
+public class RegistroController extends Controller implements ActionListener{
     Registro vista;
-    Consultas modelo;
 
-    public RegistroController(Registro vista, Consultas modelo) {
+    public RegistroController(Registro vista) {
         this.vista = vista;
-        this.modelo = modelo;
         this.vista.btnRegistrarse.addActionListener(this);
         this.vista.btnAtras.addActionListener(this);
+        vista.setVisible(true);
         
     }
     
@@ -35,7 +32,7 @@ public class RegistroController implements ActionListener{
             registrarUsuario();
         }
         if(e.getSource() == vista.btnAtras){
-            volver();
+            exit();
         }
     }
     
@@ -43,7 +40,7 @@ public class RegistroController implements ActionListener{
         if(!(vista.getFieldCedula().getText().isBlank()|| vista.getFieldUsuario().getText().isBlank() || vista.getFieldContrasenia().getPassword().length < 8 || vista.getFieldConfContrasenia().getPassword().length < 8)) {
             if(Arrays.equals(vista.getFieldContrasenia().getPassword(), vista.getFieldConfContrasenia().getPassword())){
                 Usuario nuevoUsuario = new Usuario(Integer.parseInt(vista.getFieldCedula().getText()), vista.getFieldUsuario().getText(), vista.getFieldContrasenia().getText());
-                if(modelo.registrarUsuario(nuevoUsuario)){
+                if(getModelo().registrarUsuario(nuevoUsuario)){
                     JOptionPane.showMessageDialog(null, "Usuario " + nuevoUsuario.getNombre() + " registrado con exito!"); // manejar los mensajes en el modelo para tener los datos a mano;
                 } // guardar en la base de datos
                 vista.dispose();
@@ -65,7 +62,7 @@ public class RegistroController implements ActionListener{
         }
     }
     
-    public void volver(){
-        vista.dispose();
+    public void exit(){
+        this.vista.dispose();
     }
 }

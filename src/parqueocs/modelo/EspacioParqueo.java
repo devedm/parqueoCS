@@ -8,7 +8,7 @@ import parqueocs.modelo.Vehiculo;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class EspacioParqueo {
     private int id;

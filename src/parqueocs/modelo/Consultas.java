@@ -5,19 +5,14 @@
 package parqueocs.modelo;
 
 import java.sql.*;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import parqueocs.Conexion;
 import parqueocs.modelo.Usuario;
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class Consultas extends Conexion{
     
@@ -75,16 +70,17 @@ public class Consultas extends Conexion{
     public boolean registrarVehiculo(Vehiculo vehiculo, Usuario usuario){
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "Insert INTO vehiculo (placa, fecha, entradaHora, salidaHora, duracionMinutos, cedulaUsuario, porPagar) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "Insert INTO vehiculo (placa, fechaEntrada, fechaSalida, entradaHora, salidaHora, duracionMinutos, cedulaUsuario, porPagar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, vehiculo.getPlaca()); // placa
-            ps.setDate(2, java.sql.Date.valueOf(vehiculo.getFecha())); // fecha
-            ps.setTime(3, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // entradaHora
-            ps.setTime(4, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
-            ps.setInt(5, vehiculo.getDuracionMinutos()); // duracionMinutos
-            ps.setInt(6, usuario.getCedula()); // cedulaUsuario
-            ps.setBoolean(7, vehiculo.isPorPagar()); // cedulaUsuario
+            ps.setDate(2, java.sql.Date.valueOf(vehiculo.getFechaEntrada())); // fecha entrada
+            ps.setDate(3, java.sql.Date.valueOf(vehiculo.getFechaSalida())); // fecha salida
+            ps.setTime(4, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // hora entrada
+            ps.setTime(5, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // hora salida
+            ps.setInt(6, vehiculo.getDuracionMinutos()); // duracionMinutos
+            ps.setInt(7, usuario.getCedula()); // cedulaUsuario
+            ps.setBoolean(8, vehiculo.isPorPagar()); // cedulaUsuario
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -102,15 +98,16 @@ public class Consultas extends Conexion{
     public boolean modificarVehiculo(Vehiculo vehiculo){
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "UPDATE vehiculo SET fecha=?, entradaHora=?, salidaHora=?, duracionMinutos=?, porPagar=? WHERE placa=?";
+        String sql = "UPDATE vehiculo SET fechaEntrada=?, fechaSalida=?, entradaHora=?, salidaHora=?, duracionMinutos=?, porPagar=? WHERE placa=?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setDate(1, java.sql.Date.valueOf(vehiculo.getFecha())); // fecha
-            ps.setTime(2, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // entradaHora
-            ps.setTime(3, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
-            ps.setInt(4, vehiculo.getDuracionMinutos()); // duracionMinutos
-            ps.setBoolean(5, vehiculo.isPorPagar());
-            ps.setString(6, vehiculo.getPlaca());
+            ps.setDate(1, java.sql.Date.valueOf(vehiculo.getFechaEntrada())); // fecha entrada
+            ps.setDate(2, java.sql.Date.valueOf(vehiculo.getFechaSalida())); // fecha salida
+            ps.setTime(3, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // entradaHora
+            ps.setTime(4, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
+            ps.setInt(5, vehiculo.getDuracionMinutos()); // duracionMinutos
+            ps.setBoolean(6, vehiculo.isPorPagar());
+            ps.setString(7, vehiculo.getPlaca());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -164,8 +161,16 @@ public class Consultas extends Conexion{
             rs = ps.executeQuery();
             while(rs.next()){
                 String placa = rs.getString("placa");
-                Date fecha = rs.getDate("fecha");
-                Vehiculo vehiculo = new Vehiculo(placa , fecha.toLocalDate(), LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), rs.getInt("duracionMinutos"), rs.getBoolean("porPagar"));
+                Date fechaEntrada = rs.getDate("fechaEntrada");
+                Date fechaSalida = rs.getDate("fechaSalida");
+                Vehiculo vehiculo = new Vehiculo(
+                        placa ,
+                        fechaEntrada.toLocalDate(),
+                        fechaSalida.toLocalDate(),
+                        LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), 
+                        LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), 
+                        rs.getInt("duracionMinutos"), 
+                        rs.getBoolean("porPagar"));
                 listaVehiculos.add(vehiculo);
             }
         } catch (SQLException e) {
@@ -191,7 +196,17 @@ public class Consultas extends Conexion{
             ps.setString(1, vehiculo.getPlaca());
             rs = ps.executeQuery();
             while(rs.next()){
-                return new Vehiculo(rs.getString("placa"),LocalDate.of(rs.getDate("fecha").getYear(), rs.getDate("fecha").getMonth(), rs.getDate("fecha").getDay()), LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), rs.getInt("duracionMinutos"), rs.getBoolean("porPagar"));
+                String placa = rs.getString("placa");
+                Date fechaEntrada = rs.getDate("fechaEntrada");
+                Date fechaSalida = rs.getDate("fechaSalida");
+                return new Vehiculo(
+                        placa ,
+                        fechaEntrada.toLocalDate(),
+                        fechaSalida.toLocalDate(),
+                        LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), 
+                        LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), 
+                        rs.getInt("duracionMinutos"), 
+                        rs.getBoolean("porPagar"));
             }
             return null;
         } catch (SQLException e) {

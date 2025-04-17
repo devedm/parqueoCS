@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class Usuario {
     private int cedula;

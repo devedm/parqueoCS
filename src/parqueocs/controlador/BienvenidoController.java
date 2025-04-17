@@ -6,25 +6,23 @@ package parqueocs.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import parqueocs.modelo.Consultas;
 import parqueocs.vista.Bienvenido;
 import parqueocs.vista.InicioSesion;
 import parqueocs.vista.Registro;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
-public class BienvenidoController implements ActionListener{
-    private final Bienvenido vista;
-    private final Consultas modelo;
+public class BienvenidoController extends Controller implements ActionListener{
+    private Bienvenido vista;
 
-    public BienvenidoController(Bienvenido vista, Consultas modelo) {
+    public BienvenidoController(Bienvenido vista) {
         this.vista = vista;
-        this.modelo = modelo;
         this.vista.btnIniciarSesion.addActionListener(this);
         this.vista.btnRegistrarse.addActionListener(this);
         this.vista.btnSalir.addActionListener(this);
+        vista.setVisible(true);
     }
     
     @Override
@@ -45,24 +43,18 @@ public class BienvenidoController implements ActionListener{
     public void abrirRegistro(){
         // Abre ls vista Registro
         Registro vistaRegistro = new Registro();
-        Consultas modeloUsuario = new Consultas();
-        new RegistroController(vistaRegistro, modeloUsuario);
-        
-        vistaRegistro.setVisible(true);
+        new RegistroController(vistaRegistro);
     }
     
     public void abrirInicioSesion(){
         // Abre ls vista Registro
         InicioSesion vistaInicioSesion = new InicioSesion();
-        Consultas modeloUsuario = new Consultas();
-        new InicioSesionController(vistaInicioSesion, modeloUsuario);
-        
-        vistaInicioSesion.setVisible(true);
+        new InicioSesionController(vistaInicioSesion);
     }
     
     public void exit(){
         // Cierra ls vista Bienvenido
-        vista.dispose();
+        System.exit(0);
     }
 
 

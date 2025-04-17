@@ -7,25 +7,23 @@ package parqueocs.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import parqueocs.modelo.Consultas;
 import parqueocs.modelo.Usuario;
-import parqueocs.vista.Bienvenido;
 import parqueocs.vista.InicioSesion;
 import parqueocs.vista.Principal;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
-public class InicioSesionController implements ActionListener{
+public class InicioSesionController extends Controller implements ActionListener{
     private final InicioSesion vista;
-    private final Consultas modelo;
 
-    public InicioSesionController(InicioSesion vista, Consultas modelo) {
+    public InicioSesionController(InicioSesion vista) {
         this.vista = vista;
-        this.modelo = modelo;
         this.vista.btnIniciarSesion.addActionListener(this);
         this.vista.btnAtras.addActionListener(this);
+        
+        vista.setVisible(true);
     }
     
     @Override
@@ -34,22 +32,22 @@ public class InicioSesionController implements ActionListener{
             iniciarSesion();
         }
         if(e.getSource() == vista.btnAtras){
-            volver();
+            exit();
         }
     }
     
     public void iniciarSesion(){
         // Validar espacios
-        if(!(vista.getFieldUsuario().getText().isBlank() || vista.getFieldContrasenia().getText().isBlank())){
+        if(!(vista.fieldUsuario.getText().isBlank() || vista.fieldContrasenia.getText().isBlank())){
             // si no estan vacios busco en la DB
-            Usuario usuarioExistente = new Usuario(Integer.parseInt(vista.getFieldUsuario().getText()));
-            usuarioExistente = modelo.buscarUsuario(usuarioExistente);
+            Usuario usuarioExistente = new Usuario(Integer.parseInt(vista.fieldUsuario.getText()));
+            usuarioExistente = getModelo().buscarUsuario(usuarioExistente);
             if(usuarioExistente != null){
-                if(vista.getFieldUsuario().getText().contentEquals(String.valueOf(usuarioExistente.getCedula()))){
-                    if(vista.getFieldContrasenia().getText().contentEquals(usuarioExistente.getContrasenia())){
+                if(vista.fieldUsuario.getText().contentEquals(String.valueOf(usuarioExistente.getCedula()))){
+                    if(vista.fieldContrasenia.getText().contentEquals(usuarioExistente.getContrasenia())){
                         // inicio correcto
                         JOptionPane.showMessageDialog(vista.getRootPane(),"Se ha iniciado sesion correctamente");
-                        usuarioExistente = modelo.buscarUsuario(usuarioExistente);
+                        usuarioExistente = getModelo().buscarUsuario(usuarioExistente);
                         abrirPrincipal(usuarioExistente); // iniciar sesion
                         
                     } else {
@@ -61,9 +59,9 @@ public class InicioSesionController implements ActionListener{
             }
             
         } else {
-            if(vista.getFieldUsuario().getText().isBlank()){
+            if(vista.fieldUsuario.getText().isBlank()){
                 JOptionPane.showMessageDialog(vista.getRootPane(),"Error: el espacio de cedula esta vacio");
-            } else if(vista.getFieldContrasenia().getText().isBlank()){
+            } else if(vista.fieldContrasenia.getText().isBlank()){
                 JOptionPane.showMessageDialog(vista.getRootPane(),"Error: el espacio de Contrasenia esta vacio");
             }
         }
@@ -72,16 +70,12 @@ public class InicioSesionController implements ActionListener{
     public void abrirPrincipal(Usuario usuario){
         // Abre ls vista Principal
         Principal vistaPrincipal = new Principal();
-        Consultas modelo = new Consultas();
-        new PrincipalController(vistaPrincipal, modelo, usuario);
-//        vistaPrincipal.setVisible(true);
-        
-        vista.setContentPane(vistaPrincipal.getContentPane());
-        vista.revalidate();
-        vista.repaint();
+        new PrincipalController(vistaPrincipal, usuario);
+        exit();
+
     }
     
-    public void volver(){
+    public void exit(){
         vista.dispose();
     }
 }

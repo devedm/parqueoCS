@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
 public class Fondo extends JPanel{
 

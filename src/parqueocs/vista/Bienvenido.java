@@ -54,7 +54,7 @@ public class Bienvenido extends javax.swing.JFrame {
         setSize(tamanios.FRAME_DEFAULT);
 
         btnRegistrarse.setBackground(colores.getColorPrimario());
-        btnRegistrarse.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnRegistrarse.setFont(tamanios.FUENTE_BOTON_GRANDE);
         btnRegistrarse.setForeground(colores.getColorTexto());
         btnRegistrarse.setText("Registrarse");
         btnRegistrarse.setAlignmentX(0.5F);
@@ -69,7 +69,7 @@ public class Bienvenido extends javax.swing.JFrame {
         });
 
         btnSalir.setBackground(colores.getColorPrimario());
-        btnSalir.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnSalir.setFont(tamanios.FUENTE_BOTON_GRANDE);
         btnSalir.setForeground(colores.getColorTexto());
         btnSalir.setText("Salir");
         btnSalir.setAlignmentX(0.5F);
@@ -84,7 +84,7 @@ public class Bienvenido extends javax.swing.JFrame {
         });
 
         btnIniciarSesion.setBackground(colores.getColorPrimario());
-        btnIniciarSesion.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnIniciarSesion.setFont(tamanios.FUENTE_BOTON_GRANDE);
         btnIniciarSesion.setForeground(colores.getColorTexto());
         btnIniciarSesion.setText("Iniciar Sesion");
         btnIniciarSesion.setToolTipText("");

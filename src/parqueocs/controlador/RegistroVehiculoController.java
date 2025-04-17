@@ -7,25 +7,24 @@ package parqueocs.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import parqueocs.modelo.Consultas;
 import parqueocs.modelo.Usuario;
 import parqueocs.modelo.Vehiculo;
 import parqueocs.vista.RegistroVehiculo;
 
 /**
  *
- * @author minio
+ * @author Eddy Mena Lopez
  */
-public class RegistroVehiculoController implements ActionListener{
+public class RegistroVehiculoController extends Controller implements ActionListener{
     RegistroVehiculo vista;
-    Consultas modelo;
     Usuario usuario;
 
-    public RegistroVehiculoController(RegistroVehiculo vista, Consultas modelo, Usuario usuario) {
+    public RegistroVehiculoController(RegistroVehiculo vista, Usuario usuario) {
         this.vista = vista;
-        this.modelo = modelo;
         this.usuario = usuario;
         this.vista.btnRegistrarVehiculo.addActionListener(this);
+        this.vista.btnCancelar.addActionListener(this);
+        vista.setVisible(true);
     }
     
     @Override
@@ -33,15 +32,18 @@ public class RegistroVehiculoController implements ActionListener{
         if(e.getSource() == vista.btnRegistrarVehiculo){
             registrarVehiculo();
         }
+        if(e.getSource() == vista.btnCancelar){
+            exit();
+        }
     }
     
     public void registrarVehiculo(){
         // Abre ls vista Registrar Vehiculo
         if(!(vista.fieldPlaca.getText().isBlank())){
             Vehiculo vehiculo = new Vehiculo(vista.fieldPlaca.getText());
-            if (modelo.registrarVehiculo(vehiculo, usuario)){
+            if (getModelo().registrarVehiculo(vehiculo, usuario)){
                 JOptionPane.showMessageDialog(null, "Vehiculo con placa " + vehiculo.getPlaca() + " registrado en " + usuario.getNombre() + " con exito!");
-                vista.dispose();
+                exit();
             }
         }else {
             if(vista.fieldPlaca.getText().isBlank()){
@@ -51,5 +53,9 @@ public class RegistroVehiculoController implements ActionListener{
             }
         }
     
-}
+    }
+    
+    public void exit(){
+        this.vista.dispose();
+    }
 }
