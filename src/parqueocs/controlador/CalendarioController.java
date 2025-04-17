@@ -34,6 +34,9 @@ public class CalendarioController implements ActionListener{
         llenarDias(vista.tablaDias, vista.comboMes, vista.comboAnio);
         vista.comboMes.addActionListener(this);
         vista.comboAnio.addActionListener(this);
+        vista.btnHoy.addActionListener(this);
+        vista.btnCancelar.addActionListener(this);
+        
         vista.tablaDias.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
@@ -51,6 +54,13 @@ public class CalendarioController implements ActionListener{
         if(e.getSource() == vista.tablaDias){
             seleccionarFecha();
         }
+        if(e.getSource() == vista.btnHoy){
+            seleccionarFechaHoy();
+        }
+        if(e.getSource() == vista.btnCancelar){
+            exit();
+        }
+        
     }
     
     
@@ -115,6 +125,13 @@ public class CalendarioController implements ActionListener{
         field.setText(fecha.format(formato));
         exit();
     }   
+    
+    public void seleccionarFechaHoy(){
+        LocalDate hoy = LocalDate.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        field.setText(hoy.format(formato));
+        exit();
+    } 
     
     public void exit(){
         // Cierra la vista

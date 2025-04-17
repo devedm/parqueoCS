@@ -44,6 +44,7 @@ public class PrincipalController extends Controller implements ActionListener{
         
         llenarListaVehiculos(this.usuario);
         llenarListaParqueados(this.usuario);
+        llenarNombreUsuario(this.usuario);
         
         vista.setVisible(true);
     }
@@ -100,12 +101,19 @@ public class PrincipalController extends Controller implements ActionListener{
     }
     
     public void llenarListaVehiculos(Usuario usuario){
-        ArrayList<Vehiculo> listaVehiculos = getModelo().buscarVehiculosUsuario(usuario);
-        DefaultListModel<String> myModel = new DefaultListModel<>();
-        for (Vehiculo auto : listaVehiculos){
-            myModel.addElement(auto.getPlaca());
-        }
-        vista.listVehiculos.setModel(myModel);
+        new Thread(() -> {
+            System.out.println("Working Thread");
+            ArrayList<Vehiculo> listaVehiculos = getModelo().buscarVehiculosUsuario(usuario);
+            DefaultListModel<String> myModel = new DefaultListModel<>();
+            for (Vehiculo auto : listaVehiculos){
+                myModel.addElement(auto.getPlaca());
+            }
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                vista.listVehiculos.setModel(myModel);
+            });
+            
+        }).start();
+        
     }
     
     public void llenarListaParqueados(Usuario usuario){
@@ -141,6 +149,10 @@ public class PrincipalController extends Controller implements ActionListener{
         }
                 
         vista.listParqueados.setModel(myModel);
+    }
+    
+    public void llenarNombreUsuario(Usuario usuario){
+        vista.labelSaludo.setText("¡Hola " + usuario.getNombre() + "!");
     }
     
     public boolean estaParqueado(Vehiculo vehiculoActual) {
