@@ -17,6 +17,7 @@ public class ColoresInterfaz {
     private Color colorFondo;
     private Color colorTexto;
     private Color colorBordes;
+    
     public ColoresInterfaz() {
         this.colorPrimario = Color.decode("#F2CB05");
         this.colorSecundario = Color.decode("#2C3E50");

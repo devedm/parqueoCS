@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import parqueocs.modelo.EspacioParqueo;
 import parqueocs.modelo.Parqueo;
@@ -166,22 +167,38 @@ public class PrincipalController extends Controller implements ActionListener{
             }
         }
     }
+    
+    public boolean validarHayItemsEnLista(JList lista){
+        return lista.getModel().getSize() != 0;
+    }
 
     public void abrirParquear(Usuario usuario){
-        Parquear vistaParquear = new Parquear();
-        new ParquearController(vistaParquear, usuario);
+        if (validarHayItemsEnLista(vista.listVehiculos)) {
+            Parquear vistaParquear = new Parquear();
+            new ParquearController(vistaParquear, usuario);
+        } else {
+            JOptionPane.showMessageDialog(vista.getRootPane(),"Error: No hay vehiculos registrados");
+        }
+        
     }
     
     public void abrirModificarParqueado(Usuario usuario){
-        ModificarParqueo vistaModificarParqueo = new ModificarParqueo();
-        new ModificarParqueoController(vistaModificarParqueo, usuario);
-        vistaModificarParqueo.setVisible(true);
+        if (validarHayItemsEnLista(vista.listParqueados)) {
+            ModificarParqueo vistaModificarParqueo = new ModificarParqueo();
+            new ModificarParqueoController(vistaModificarParqueo, usuario);
+        } else {
+            JOptionPane.showMessageDialog(vista.getRootPane(),"Error: No hay vehiculos parqueados");
+        }
     }
     
     public void abrirPagarYSalir(Usuario usuario){
-        PagarYSalir vistaPagarYSalir = new PagarYSalir();
-        new PagarYSalirController(vistaPagarYSalir, usuario);
-        vistaPagarYSalir.setVisible(true);
+        if (validarHayItemsEnLista(vista.listParqueados)) {
+            PagarYSalir vistaPagarYSalir = new PagarYSalir();
+            new PagarYSalirController(vistaPagarYSalir, usuario);
+        } else {
+            JOptionPane.showMessageDialog(vista.getRootPane(),"Error: No hay vehiculos parqueados");
+        }
+        
     }
     
     public void exit(){

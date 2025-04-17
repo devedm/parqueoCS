@@ -35,6 +35,7 @@ public class PagarYSalirController extends Controller implements ActionListener{
         // Metodos
         cargarVehiculosCombo(usuario);
         mostrarInformacionVehiculo();
+        vista.setVisible(true);
     }
 
     @Override
@@ -61,12 +62,51 @@ public class PagarYSalirController extends Controller implements ActionListener{
        vista.comboAuto.setModel(modelCombo);
     }
     
+    public Duration validarTiempo(Vehiculo vehiculo){
+        LocalDateTime entrada = LocalDateTime.of(vehiculo.getFechaEntrada(), vehiculo.getEntradaHora());
+        LocalDateTime salida = LocalDateTime.of(vehiculo.getFechaSalida(), vehiculo.getSalidaHora());
+        
+        Duration duracion = Duration.between(entrada, salida);
+        return duracion;
+    }
+    
+    public Vehiculo modificarSalidaVehiculo(Vehiculo vehiculo){
+     
+        LocalDateTime ahora = LocalDateTime.now();
+        LocalDateTime entrada = LocalDateTime.of(vehiculo.getFechaEntrada(), vehiculo.getEntradaHora());
+        LocalDateTime salida = LocalDateTime.of(vehiculo.getFechaSalida(), vehiculo.getSalidaHora());
+        
+        if(salida.isAfter(ahora) && entrada.isBefore(ahora)){
+            // Se calcula la salida a ahora porque estabamos parqueados desde hace x tiempo y estamos saliendo antes 
+            vehiculo.setFechaSalida(ahora.toLocalDate());
+            vehiculo.setSalidaHora(ahora.toLocalTime());
+            vehiculo.setDuracionMinutos((int) validarTiempo(vehiculo).toMinutes());
+            System.out.println("Salida antes de la hora");
+        } else if (salida.isBefore(ahora) && entrada.isBefore(ahora)){
+            // se calcula la salida a ahora estamos saliendo despues 
+            vehiculo.setFechaSalida(ahora.toLocalDate());
+            vehiculo.setSalidaHora(ahora.toLocalTime());
+            vehiculo.setDuracionMinutos((int) validarTiempo(vehiculo).toMinutes());
+            System.out.println("Salida despues de la hora");
+            
+        } else if (salida.isAfter(ahora) && entrada.isAfter(ahora)) {
+            // Se libera el espacio solamente se esta saliendo antes de entrar a parquear
+            System.out.println("Salida sin parquear");
+            
+        } else {
+            // esta a tiempo y no se cambia la hora de salida 
+            System.out.println("Salida a tiempo");
+        }
+        
+        return vehiculo;
+    }
+    
     public void mostrarInformacionVehiculo(){
         String placaSeleccionada = (String) vista.comboAuto.getSelectedItem();
         if (placaSeleccionada == null) return;
 
         vehiculo = getModelo().buscarVehiculosPorPlaca(new Vehiculo(placaSeleccionada));
-        
+        vehiculo = modificarSalidaVehiculo(vehiculo);
         LocalDateTime entrada = LocalDateTime.of(vehiculo.getFechaEntrada(), vehiculo.getEntradaHora());
         LocalDateTime salida = LocalDateTime.of(vehiculo.getFechaSalida(), vehiculo.getSalidaHora());
 
@@ -83,16 +123,18 @@ public class PagarYSalirController extends Controller implements ActionListener{
       
     
     public void terminarParqueo(){
-        String placa = (String) vista.comboAuto.getSelectedItem();
-        vehiculo = new Vehiculo(placa);
-        vehiculo = getModelo().buscarVehiculosPorPlaca(vehiculo);
+        String placaSeleccionada = (String) vista.comboAuto.getSelectedItem();
+        if (placaSeleccionada == null) return;
+        
+        vehiculo = getModelo().buscarVehiculosPorPlaca(new Vehiculo(placaSeleccionada));
+        vehiculo = modificarSalidaVehiculo(vehiculo);
         vehiculo.setPorPagar(false);
         
         EspacioParqueo espacio = getModelo().buscarEspacioParqueoPorVehiculo(vehiculo);
         espacio.setPlacaVehiculo(null);
         
         if(getModelo().modificarVehiculo(vehiculo)){
-            System.out.println("Vehiculo " + placa + " modificado, pago por parqueo " + vehiculo.getDuracionMinutos() + " minutos.");
+            System.out.println("Vehiculo " + placaSeleccionada + " modificado, pago por parqueo " + vehiculo.getDuracionMinutos() + " minutos.");
             if(getModelo().modificarEspacioParqueo(espacio)){
                 System.out.println("Espacio " + espacio.getId() + " liberado, pago por parqueo " + vehiculo.getDuracionMinutos() + " minutos.");
             }

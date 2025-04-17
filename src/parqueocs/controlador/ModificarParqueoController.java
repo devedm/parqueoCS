@@ -46,11 +46,14 @@ public class ModificarParqueoController extends Controller implements ActionList
         this.vista.comboHoraSalida.addActionListener(this);
         this.vista.comboMinutosSalida.addActionListener(this);
         this.vista.comboAMPMSalida.addActionListener(this);
+        this.vista.comboAuto.addActionListener(this);
         
         cargarVehiculosCombo(usuario);
         cargarEspaciosTiempo();
         cargarEspaciosParqueo();
         
+        vista.setVisible(true);
+
         vistaInicializada = true;
         
     }
@@ -79,6 +82,10 @@ public class ModificarParqueoController extends Controller implements ActionList
             
             cargarTiempo();
         }
+        if(e.getSource() == vista.comboAuto){
+            cargarEspaciosParqueo();
+        }
+        
         
     }
     
@@ -89,7 +96,7 @@ public class ModificarParqueoController extends Controller implements ActionList
     }
     
     public void cargarVehiculosCombo(Usuario usuario){
-        ArrayList<Vehiculo> listaVehiculos = getModelo().buscarVehiculosUsuario(usuario);
+        ArrayList<Vehiculo> listaVehiculos = getModelo().buscarVehiculosUsuarioFull(usuario);
         DefaultComboBoxModel<String> modelCombo = new DefaultComboBoxModel<>();
         for(Vehiculo auto : listaVehiculos){
             if (auto.isPorPagar()) {
@@ -100,16 +107,27 @@ public class ModificarParqueoController extends Controller implements ActionList
     }
     
     public void cargarEspaciosTiempo(){
-        cargarFecha(vista.fieldFechaEntrada);
-        cargarFecha(vista.fieldFechaSalida);
+        cargarFechaExistente(vista.fieldFechaEntrada, vista.fieldFechaSalida);
         cargarMinutosYHoras();
-        cargarHora();
+        cargarHoraExistente(true, vista.comboHoraInicio, vista.comboMinutosInicio, vista.comboAMPMInicio);
+        cargarHoraExistente(false, vista.comboHoraSalida, vista.comboMinutosSalida, vista.comboAMPMSalida);
     }
     
     public void cargarFecha(JFormattedTextField field){
         LocalDate hoy = LocalDate.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         field.setText(hoy.format(formato));
+    }
+    
+    public void cargarFechaExistente(JFormattedTextField fieldEntrada, JFormattedTextField fieldSalida){
+        String placa = (String) vista.comboAuto.getSelectedItem();
+        vehiculo = getModelo().buscarVehiculosPorPlaca(new Vehiculo(placa));
+        
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        fieldEntrada.setText(vehiculo.getFechaEntrada().format(formato));
+        fieldSalida.setText(vehiculo.getFechaSalida().format(formato));
+        
     }
     
     public void cargarHora(){
@@ -142,6 +160,47 @@ public class ModificarParqueoController extends Controller implements ActionList
         vista.comboHoraSalida.setSelectedItem(String.valueOf(hora));
         vista.comboMinutosSalida.setSelectedItem(String.format("%02d", minutoMasCercano));
         vista.comboAMPMSalida.setSelectedItem(ampm);
+    }
+    
+    public void cargarHoraExistente(boolean esEntrada, JComboBox comboHora, JComboBox comboMinuto, JComboBox comboAMPM){
+        String placa = (String) vista.comboAuto.getSelectedItem();
+        vehiculo = getModelo().buscarVehiculosPorPlaca(new Vehiculo(placa));
+        
+        int hora;
+        int minuto;
+        String ampm = "AM";
+        
+        int[] minutos = {0,15,30,45};
+        int minutoMasCercano = minutos[0];
+        
+        if(esEntrada){
+            hora = vehiculo.getEntradaHora().getHour();
+            minuto = vehiculo.getEntradaHora().getMinute();
+            
+        } else {
+            hora = vehiculo.getSalidaHora().getHour();
+            minuto = vehiculo.getSalidaHora().getMinute();
+        }
+        
+        if(hora == 0){
+            hora = 12;
+        } else if (hora == 12){
+            ampm = "PM";
+        } else if (hora > 12){
+            hora -= 12;
+            ampm = "PM";
+        }
+
+        for (int i = 1; i < minutos.length; i++) {
+            if (Math.abs(minutos[i] - minuto) < Math.abs(minutoMasCercano - minuto)) {
+                minutoMasCercano = minutos[i];
+            }
+        }
+        
+        comboHora.setSelectedItem(String.valueOf(hora));
+        comboMinuto.setSelectedItem(String.format("%02d", minutoMasCercano));
+        comboAMPM.setSelectedItem(ampm);
+        
     }
     
     public void cargarMinutosYHoras(){
@@ -227,17 +286,25 @@ public class ModificarParqueoController extends Controller implements ActionList
         return LocalTime.of(hora, minuto);
     }
     
-    public void cargarEspaciosParqueo(){
+    public boolean cargarEspaciosParqueo(){
         ArrayList<EspacioParqueo> listaEspacios = getModelo().buscarEspacioParqueoPorParqueo(new Parqueo(1));
         DefaultComboBoxModel<String> myModel = new DefaultComboBoxModel<>();
+        String placa;
+        try {
+            placa = (String) vista.comboAuto.getSelectedItem();
+            vehiculo = getModelo().buscarVehiculosPorPlaca(new Vehiculo(placa));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(vista, "No se pueden cargar los espacios sin seleccionar un vehiculo");
+            return false;
+        }
         
         for (EspacioParqueo espacio : listaEspacios) {
-            if(espacio.getPlacaVehiculo() == null){
+            if(espacio.getPlacaVehiculo() == null || espacio.getPlacaVehiculo().contentEquals(placa)){
                 myModel.addElement(String.valueOf("Plaza #" + espacio.getId()));
             }
         }
         vista.listEspacios.setModel(myModel);
-        
+        return true;
     }
 
     
