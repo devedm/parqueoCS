@@ -224,7 +224,7 @@ public class ParquearController implements ActionListener{
         
         for (EspacioParqueo espacio : listaEspacios) {
             if(espacio.getPlacaVehiculo() == null){
-                myModel.addElement(String.valueOf(espacio.getId()));
+                myModel.addElement(String.valueOf("Plaza #" + espacio.getId()));
             }
         }
         vista.listEspacios.setModel(myModel);
@@ -262,12 +262,12 @@ public class ParquearController implements ActionListener{
         System.out.println("Minutos a parquear: " + tiempoParqueado);
 
         // Espacio
-        idEspacioParqueo = Integer.parseInt(vista.listEspacios.getSelectedValue());
+        idEspacioParqueo = Integer.parseInt(vista.listEspacios.getSelectedValue().replace("Plaza #", ""));
         System.out.println("Espacio de parqueo: " + idEspacioParqueo);
             
         
         // Crear modelo vehiculo
-        vehiculo = new Vehiculo(placaAuto, fecha, horaInicio, horaSalida, tiempoParqueado);
+        vehiculo = new Vehiculo(placaAuto, fecha, horaInicio, horaSalida, tiempoParqueado, true);
         
         // Crear modelo espacioParqueo
         

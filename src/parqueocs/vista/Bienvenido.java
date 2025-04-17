@@ -7,7 +7,6 @@ package parqueocs.vista;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import parqueocs.modelo.ColoresInterfaz;
 
 
 /**
@@ -19,13 +18,15 @@ public class Bienvenido extends javax.swing.JFrame {
     /**
      * Creates new form Bienvenido
      */
-    ColoresInterfaz c = new ColoresInterfaz();
+    ColoresInterfaz colores = new ColoresInterfaz();
+    TamaniosInterfaz tamanios = new TamaniosInterfaz();
     
     public Bienvenido(){
+        setContentPane(new Fondo());
         initComponents();
         setTitle("Sistema de Parqueo - Bienvenido");
         setLocationRelativeTo(null);
-        getContentPane().setBackground(c.getColorFondo());
+
 //        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo-parqueo1.png"));
 //        this.setIconImage(icono);
     }    
@@ -50,46 +51,50 @@ public class Bienvenido extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(new java.awt.Color(42, 132, 141));
         setResizable(false);
+        setSize(tamanios.FRAME_DEFAULT);
 
-        btnRegistrarse.setBackground(c.getColorPrimario());
+        btnRegistrarse.setBackground(colores.getColorPrimario());
         btnRegistrarse.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btnRegistrarse.setForeground(c.getColorTexto());
+        btnRegistrarse.setForeground(colores.getColorTexto());
         btnRegistrarse.setText("Registrarse");
         btnRegistrarse.setAlignmentX(0.5F);
         btnRegistrarse.setBorder(null);
         btnRegistrarse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRegistrarse.setMargin(new java.awt.Insets(10, 24, 8, 24));
+        btnRegistrarse.setPreferredSize(tamanios.BOTON_GRANDE);
         btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarseActionPerformed(evt);
             }
         });
 
-        btnSalir.setBackground(c.getColorPrimario());
+        btnSalir.setBackground(colores.getColorPrimario());
         btnSalir.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btnSalir.setForeground(c.getColorTexto());
+        btnSalir.setForeground(colores.getColorTexto());
         btnSalir.setText("Salir");
         btnSalir.setAlignmentX(0.5F);
         btnSalir.setBorder(null);
         btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSalir.setMargin(new java.awt.Insets(10, 24, 8, 24));
+        btnSalir.setPreferredSize(tamanios.BOTON_GRANDE);
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
 
-        btnIniciarSesion.setBackground(c.getColorPrimario());
+        btnIniciarSesion.setBackground(colores.getColorPrimario());
         btnIniciarSesion.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btnIniciarSesion.setForeground(c.getColorTexto());
+        btnIniciarSesion.setForeground(colores.getColorTexto());
         btnIniciarSesion.setText("Iniciar Sesion");
+        btnIniciarSesion.setToolTipText("");
         btnIniciarSesion.setAlignmentX(0.5F);
         btnIniciarSesion.setBorder(null);
         btnIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnIniciarSesion.setMargin(new java.awt.Insets(10, 24, 8, 24));
         btnIniciarSesion.setMaximumSize(new java.awt.Dimension(200, 60));
         btnIniciarSesion.setMinimumSize(new java.awt.Dimension(160, 50));
-        btnIniciarSesion.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnIniciarSesion.setPreferredSize(tamanios.BOTON_GRANDE);
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSesionActionPerformed(evt);
@@ -97,7 +102,7 @@ public class Bienvenido extends javax.swing.JFrame {
         });
 
         labelTitulo.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
-        labelTitulo.setForeground(c.getColorTexto());
+        labelTitulo.setForeground(colores.getColorTexto());
         labelTitulo.setText("Bienvenido");
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parqueocs/resources/Images/logo-parqueo1.png"))); // NOI18N
@@ -107,14 +112,14 @@ public class Bienvenido extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addContainerGap(125, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(labelTitulo)
-                    .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logo))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,13 +128,13 @@ public class Bienvenido extends javax.swing.JFrame {
                 .addComponent(logo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTitulo)
-                .addGap(18, 89, Short.MAX_VALUE)
-                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(18, 66, Short.MAX_VALUE)
+                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();

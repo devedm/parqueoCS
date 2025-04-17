@@ -75,7 +75,7 @@ public class Consultas extends Conexion{
     public boolean registrarVehiculo(Vehiculo vehiculo, Usuario usuario){
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "Insert INTO vehiculo (placa, fecha, entradaHora, salidaHora, duracionMinutos, cedulaUsuario) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "Insert INTO vehiculo (placa, fecha, entradaHora, salidaHora, duracionMinutos, cedulaUsuario, porPagar) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, vehiculo.getPlaca()); // placa
@@ -84,6 +84,7 @@ public class Consultas extends Conexion{
             ps.setTime(4, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
             ps.setInt(5, vehiculo.getDuracionMinutos()); // duracionMinutos
             ps.setInt(6, usuario.getCedula()); // cedulaUsuario
+            ps.setBoolean(7, vehiculo.isPorPagar()); // cedulaUsuario
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -101,14 +102,15 @@ public class Consultas extends Conexion{
     public boolean modificarVehiculo(Vehiculo vehiculo){
         PreparedStatement ps = null;
         Connection con = getConexion();
-        String sql = "UPDATE vehiculo SET fecha=?, entradaHora=?, salidaHora=?, duracionMinutos=?  WHERE placa=?";
+        String sql = "UPDATE vehiculo SET fecha=?, entradaHora=?, salidaHora=?, duracionMinutos=?, porPagar=? WHERE placa=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setDate(1, java.sql.Date.valueOf(vehiculo.getFecha())); // fecha
             ps.setTime(2, java.sql.Time.valueOf(vehiculo.getEntradaHora())); // entradaHora
             ps.setTime(3, java.sql.Time.valueOf(vehiculo.getSalidaHora())); // salidaHora
             ps.setInt(4, vehiculo.getDuracionMinutos()); // duracionMinutos
-            ps.setString(5, vehiculo.getPlaca());
+            ps.setBoolean(5, vehiculo.isPorPagar());
+            ps.setString(6, vehiculo.getPlaca());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -163,7 +165,7 @@ public class Consultas extends Conexion{
             while(rs.next()){
                 String placa = rs.getString("placa");
                 Date fecha = rs.getDate("fecha");
-                Vehiculo vehiculo = new Vehiculo(placa , fecha.toLocalDate(), LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), rs.getInt("duracionMinutos"));
+                Vehiculo vehiculo = new Vehiculo(placa , fecha.toLocalDate(), LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), rs.getInt("duracionMinutos"), rs.getBoolean("porPagar"));
                 listaVehiculos.add(vehiculo);
             }
         } catch (SQLException e) {
@@ -189,7 +191,7 @@ public class Consultas extends Conexion{
             ps.setString(1, vehiculo.getPlaca());
             rs = ps.executeQuery();
             while(rs.next()){
-                return new Vehiculo(rs.getString("placa"),LocalDate.of(rs.getDate("fecha").getYear(), rs.getDate("fecha").getMonth(), rs.getDate("fecha").getDay()), LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), rs.getInt("duracionMinutos"));
+                return new Vehiculo(rs.getString("placa"),LocalDate.of(rs.getDate("fecha").getYear(), rs.getDate("fecha").getMonth(), rs.getDate("fecha").getDay()), LocalTime.of(rs.getTime("entradaHora").getHours(), rs.getTime("entradaHora").getMinutes()), LocalTime.of(rs.getTime("salidaHora").getHours(), rs.getTime("salidaHora").getMinutes()), rs.getInt("duracionMinutos"), rs.getBoolean("porPagar"));
             }
             return null;
         } catch (SQLException e) {
@@ -341,5 +343,30 @@ public class Consultas extends Conexion{
                 System.err.println(e);
             }
         }
-    } 
+    }
+    
+    public EspacioParqueo buscarEspacioParqueoPorId (EspacioParqueo espacio){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        String sql = "SELECT * FROM espacioparqueo WHERE id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, espacio.getId());
+            rs = ps.executeQuery();
+            while(rs.next()){
+                return new EspacioParqueo(rs.getInt("id"), rs.getString("vehiculoPlaca"), rs.getInt("parqueoId"));
+            }
+            return null;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return null;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
 }

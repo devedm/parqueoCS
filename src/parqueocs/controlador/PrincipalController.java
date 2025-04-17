@@ -17,6 +17,8 @@ import parqueocs.modelo.EspacioParqueo;
 import parqueocs.modelo.Parqueo;
 import parqueocs.modelo.Usuario;
 import parqueocs.modelo.Vehiculo;
+import parqueocs.vista.ModificarParqueo;
+import parqueocs.vista.PagarYSalir;
 import parqueocs.vista.Parquear;
 import parqueocs.vista.Principal;
 import parqueocs.vista.RegistroVehiculo;
@@ -39,11 +41,14 @@ public class PrincipalController implements ActionListener{
         this.vista.btnParquear.addActionListener(this);
         this.vista.btnRefrescar.addActionListener(this);
         this.vista.btnRefrescarParqueados.addActionListener(this);
+        this.vista.btnModificar.addActionListener(this);
+        this.vista.btnPagar.addActionListener(this);
+        this.vista.btnCerrarSesion.addActionListener(this);
         
         
         llenarListaVehiculos(this.usuario);
         llenarListaParqueados(this.usuario);
-        limpiarEspacios();
+//        limpiarEspacios();
         
     }
 
@@ -66,7 +71,16 @@ public class PrincipalController implements ActionListener{
         }
         if(e.getSource() == vista.btnRefrescarParqueados){
             llenarListaParqueados(usuario);
-            limpiarEspacios();
+//            limpiarEspacios();
+        }
+        if(e.getSource() == vista.btnModificar){
+            abrirModificarParqueado(usuario);
+        }
+        if(e.getSource() == vista.btnPagar){
+            abrirPagarYSalir(usuario);
+        }
+        if(e.getSource() == vista.btnCerrarSesion){
+            exit();
         }
     }
     
@@ -105,10 +119,15 @@ public class PrincipalController implements ActionListener{
         ArrayList<Vehiculo> listaVehiculos = modelo.buscarVehiculosUsuarioFull(usuario);
         DefaultListModel<String> myModel = new DefaultListModel<>();
         
-        for (Vehiculo vehiculo : listaVehiculos) {
+        for (Vehiculo vehiculo : listaVehiculos ) {
             if(estaParqueado(vehiculo)){
-                myModel.addElement(vehiculo.getPlaca() + " - Entrada: " + vehiculo.getEntradaHora().format(DateTimeFormatter.ISO_TIME) + " - Salida: " + vehiculo.getSalidaHora().format(DateTimeFormatter.ISO_TIME)); 
-                System.out.println(vehiculo.toString());
+                if(LocalTime.now().isBefore(vehiculo.getEntradaHora())){
+                    myModel.addElement("Pendiente - " + vehiculo.getPlaca() + " - Entrada: " + vehiculo.getEntradaHora().format(DateTimeFormatter.ISO_TIME) + " - Salida: " + vehiculo.getSalidaHora().format(DateTimeFormatter.ISO_TIME)); 
+                } else if(LocalTime.now().isAfter(vehiculo.getSalidaHora())){
+                    myModel.addElement("Vencido - " + vehiculo.getPlaca() + " - Entrada: " + vehiculo.getEntradaHora().format(DateTimeFormatter.ISO_TIME) + " - Salida: " + vehiculo.getSalidaHora().format(DateTimeFormatter.ISO_TIME)); 
+                }else if (LocalTime.now().isBefore(vehiculo.getSalidaHora())){
+                    myModel.addElement("Vencido - " + vehiculo.getPlaca() + " - Entrada: " + vehiculo.getEntradaHora().format(DateTimeFormatter.ISO_TIME) + " - Salida: " + vehiculo.getSalidaHora().format(DateTimeFormatter.ISO_TIME)); 
+                }
             }
         }
                 
@@ -117,23 +136,23 @@ public class PrincipalController implements ActionListener{
     
     public boolean estaParqueado(Vehiculo vehiculoActual){
         
-        LocalTime horaActual = LocalTime.now();
-        System.out.println("Hora Actual: " + horaActual.format(DateTimeFormatter.ISO_TIME));
-        System.out.println("Hora Salida Vehiculo: " + vehiculoActual.getSalidaHora());
+//        LocalTime horaActual = LocalTime.now();
+//        System.out.println("Hora Actual: " + horaActual.format(DateTimeFormatter.ISO_TIME));
+//        System.out.println("Hora Salida Vehiculo: " + vehiculoActual.getSalidaHora());
         
-        LocalDate fechaActual = LocalDate.now();
-        System.out.println("Fecha Actual" + fechaActual);
-        System.out.println("Fecha Vehiculo" + vehiculoActual.getFecha());
-        
-        if(vehiculoActual.getFecha().equals(fechaActual)){
-                if(horaActual.isAfter(vehiculoActual.getEntradaHora())){
-                    if(!horaActual.isAfter(vehiculoActual.getSalidaHora())){
-                        System.out.println(vehiculoActual.getPlaca() + " esta parqueado actualmente!");
-                        return true;
-                    }
-                }
-            }
-        return false;
+//        LocalDate fechaActual = LocalDate.now();
+//        System.out.println("Fecha Actual" + fechaActual);
+//        System.out.println("Fecha Vehiculo" + vehiculoActual.getFecha());
+//        if(vehiculoActual.getFecha().equals(fechaActual)){
+//                if(horaActual.isAfter(vehiculoActual.getEntradaHora())){
+//                    if(!horaActual.isAfter(vehiculoActual.getSalidaHora())){
+//                        System.out.println(vehiculoActual.getPlaca() + " esta parqueado actualmente!");
+//                        return true;
+//                    }
+//                }
+//            }
+
+        return vehiculoActual.isPorPagar();
     }
     
     public void limpiarEspacios(){
@@ -159,4 +178,22 @@ public class PrincipalController implements ActionListener{
         new ParquearController(vistaParquear, modelo, usuario);
         vistaParquear.setVisible(true);
     }
+    
+    public void abrirModificarParqueado(Usuario usuario){
+        ModificarParqueo vistaModificarParqueo = new ModificarParqueo();
+        new ModificarParqueoController(vistaModificarParqueo, usuario);
+        vistaModificarParqueo.setVisible(true);
+    }
+    
+    public void abrirPagarYSalir(Usuario usuario){
+        PagarYSalir vistaPagarYSalir = new PagarYSalir();
+        new PagarYSalirController(vistaPagarYSalir, usuario);
+        vistaPagarYSalir.setVisible(true);
+    }
+    
+    public void exit(){
+        // Cierra la vista
+        vista.dispose();
+    }
+    
 }

@@ -13,7 +13,11 @@ public class Parquear extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    ColoresInterfaz colores = new ColoresInterfaz();
+    TamaniosInterfaz tamanios = new TamaniosInterfaz();
+    
     public Parquear() {
+        setContentPane(new Fondo());
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Sistema de Parqueo - Parquear");
@@ -52,7 +56,7 @@ public class Parquear extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelEspacios.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        labelEspacios.setText("# Espacios Disponibles");
+        labelEspacios.setText("Plazas Disponibles");
 
         listEspacios.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };

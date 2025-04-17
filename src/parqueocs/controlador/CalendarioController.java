@@ -21,6 +21,7 @@ import parqueocs.modelo.Consultas;
 import parqueocs.modelo.Vehiculo;
 import parqueocs.vista.Bienvenido;
 import parqueocs.vista.Calendario;
+import parqueocs.vista.ModificarParqueo;
 import parqueocs.vista.Parquear;
 
 /**
@@ -30,6 +31,7 @@ import parqueocs.vista.Parquear;
 public class CalendarioController implements ActionListener{
     private final Calendario vista;
     private Parquear vistaParquear;
+    private ModificarParqueo vistaModificarParqueo;
 
     public CalendarioController(Calendario vista, Parquear vistaParquear) {
         this.vista = vista;
@@ -42,7 +44,24 @@ public class CalendarioController implements ActionListener{
         vista.tablaDias.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                seleccionarFecha();
+                seleccionarFechaParquear();
+            }
+        });
+        
+    }
+    
+    public CalendarioController(Calendario vista, ModificarParqueo vistaModificarParqueo) {
+        this.vista = vista;
+        this.vistaModificarParqueo = vistaModificarParqueo;
+        llenarMes();
+        llenarAnio();
+        llenarDias();
+        vista.comboMes.addActionListener(this);
+        vista.comboAnio.addActionListener(this);
+        vista.tablaDias.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                seleccionarFechaModificar();
             }
         });
         
@@ -54,7 +73,12 @@ public class CalendarioController implements ActionListener{
             llenarDias();
         }
         if(e.getSource() == vista.tablaDias){
-            seleccionarFecha();
+            if(vistaModificarParqueo == null){
+                seleccionarFechaParquear();
+            } else {
+                seleccionarFechaModificar();
+            }
+            
         }
     }
     
@@ -108,7 +132,7 @@ public class CalendarioController implements ActionListener{
         vista.tablaDias.setModel(modelo);
     }
     
-    public void seleccionarFecha(){
+    public void seleccionarFechaParquear(){
         int mes = vista.comboMes.getSelectedIndex() + 1; // Enero = 1, ... Diciembre = 12
         int anio = Integer.parseInt((String) vista.comboAnio.getSelectedItem());
         
@@ -120,5 +144,18 @@ public class CalendarioController implements ActionListener{
         vistaParquear.fieldFecha.setText(fecha.format(formato));
         vista.dispose();
     }   
+    
+    public void seleccionarFechaModificar(){
+        int mes = vista.comboMes.getSelectedIndex() + 1; // Enero = 1, ... Diciembre = 12
+        int anio = Integer.parseInt((String) vista.comboAnio.getSelectedItem());
+        
+        int col = vista.tablaDias.getSelectedColumn();
+        int row = vista.tablaDias.getSelectedRow();
+        int dia = (int) vista.tablaDias.getValueAt(row, col);
+        LocalDate fecha = LocalDate.of(anio, mes, dia);
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        vistaModificarParqueo.fieldFecha.setText(fecha.format(formato));
+        vista.dispose();
+    } 
 }
 

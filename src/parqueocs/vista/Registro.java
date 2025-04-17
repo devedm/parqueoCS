@@ -23,18 +23,14 @@ public class Registro extends javax.swing.JFrame {
      * Creates new form Registro
      */
     
-    Color colorPrimario = Color.decode("#F2CB05");
-    Color colorSecundario = Color.decode("#2C3E50");
-    Color colorAcento = Color.decode("#27AE60");
-    Color colorFondo = Color.decode("#F8F9F9");
-    Color colorTexto = Color.decode("#2C3E50");
-    Color colorBordes = Color.decode("#BDC3C7");
+    ColoresInterfaz colores = new ColoresInterfaz();
+    TamaniosInterfaz tamanios = new TamaniosInterfaz();
     
     public Registro() {
+        setContentPane(new Fondo());
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Sistema de Parqueo - Registro");
-        getContentPane().setBackground(colorFondo);
     }
 
     public JButton getBtnRegistrarse() {
@@ -145,11 +141,12 @@ public class Registro extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
+        jLabel3.setForeground(colores.getColorTexto());
         jLabel3.setText("Registro");
 
-        btnRegistrarse.setBackground(colorPrimario);
+        btnRegistrarse.setBackground(colores.getColorPrimario());
         btnRegistrarse.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnRegistrarse.setForeground(colorTexto);
+        btnRegistrarse.setForeground(colores.getColorTexto());
         btnRegistrarse.setText("Registrarse");
         btnRegistrarse.setAlignmentX(0.5F);
         btnRegistrarse.setBorderPainted(false);
@@ -162,20 +159,24 @@ public class Registro extends javax.swing.JFrame {
         });
 
         labelCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelCedula.setForeground(colores.getColorTexto());
         labelCedula.setText("Cedula");
 
         labelContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelContrasenia.setForeground(colores.getColorTexto());
         labelContrasenia.setText("Contraseña");
 
         labelConfContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelConfContrasenia.setForeground(colores.getColorTexto());
         labelConfContrasenia.setText("Confirmar Contraseña");
 
         labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelUsuario.setForeground(colores.getColorTexto());
         labelUsuario.setText("Usuario");
 
-        btnAtras.setBackground(colorPrimario);
+        btnAtras.setBackground(colores.getColorPrimario());
         btnAtras.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnAtras.setForeground(colorTexto);
+        btnAtras.setForeground(colores.getColorTexto());
         btnAtras.setText("Atras");
         btnAtras.setAlignmentX(0.5F);
         btnAtras.setBorderPainted(false);

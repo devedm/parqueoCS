@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import parqueocs.modelo.Usuario;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import parqueocs.modelo.ColoresInterfaz;
 
 /**
  *
@@ -22,13 +21,15 @@ public class InicioSesion extends javax.swing.JFrame {
      * Creates new form InicioSesion
      */
     
-    ColoresInterfaz c = new ColoresInterfaz();
+    ColoresInterfaz colores = new ColoresInterfaz();
+    TamaniosInterfaz tamanios = new TamaniosInterfaz();
     
     public InicioSesion() {
+        setContentPane(new Fondo());
         initComponents();
         setTitle("Sistema de Parqueo - Inicio de Sesion");
         setLocationRelativeTo(null);
-        getContentPane().setBackground(c.getColorFondo());
+        getContentPane().setBackground(colores.getColorFondo());
     }
 
     public JButton getBtnIniciarSesion() {
@@ -99,42 +100,50 @@ public class InicioSesion extends javax.swing.JFrame {
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(tamanios.FRAME_DEFAULT);
+        setSize(tamanios.FRAME_DEFAULT);
+
+        fieldUsuario.setPreferredSize(tamanios.FIELD_GRANDE);
 
         labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelUsuario.setForeground(c.getColorTexto());
+        labelUsuario.setForeground(colores.getColorTexto());
         labelUsuario.setText("Cedula");
 
+        fieldContrasenia.setPreferredSize(tamanios.FIELD_GRANDE);
+
         labelContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelContrasenia.setForeground(c.getColorTexto());
+        labelContrasenia.setForeground(colores.getColorTexto());
         labelContrasenia.setText("Contraseña");
 
         labelTitulo.setBackground(new java.awt.Color(255, 255, 255));
         labelTitulo.setFont(new java.awt.Font("Calibri", 1, 32)); // NOI18N
-        labelTitulo.setForeground(c.getColorTexto());
+        labelTitulo.setForeground(colores.getColorTexto());
         labelTitulo.setText("Iniciar Sesion");
 
-        btnIniciarSesion.setBackground(c.getColorPrimario());
+        btnIniciarSesion.setBackground(colores.getColorPrimario());
         btnIniciarSesion.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btnIniciarSesion.setForeground(c.getColorTexto());
+        btnIniciarSesion.setForeground(colores.getColorTexto());
         btnIniciarSesion.setText("Iniciar Sesion");
         btnIniciarSesion.setAlignmentX(0.5F);
         btnIniciarSesion.setBorderPainted(false);
         btnIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnIniciarSesion.setMargin(new java.awt.Insets(5, 14, 3, 14));
+        btnIniciarSesion.setPreferredSize(tamanios.BOTON_GRANDE);
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSesionActionPerformed(evt);
             }
         });
 
-        btnAtras.setBackground(c.getColorPrimario());
+        btnAtras.setBackground(colores.getColorPrimario());
         btnAtras.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btnAtras.setForeground(c.getColorTexto());
+        btnAtras.setForeground(colores.getColorTexto());
         btnAtras.setText("Atras");
         btnAtras.setAlignmentX(0.5F);
         btnAtras.setBorderPainted(false);
         btnAtras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAtras.setMargin(new java.awt.Insets(5, 14, 3, 14));
+        btnAtras.setPreferredSize(tamanios.BOTON_GRANDE);
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtrasActionPerformed(evt);
@@ -147,49 +156,51 @@ public class InicioSesion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnIniciarSesion))
-                    .addComponent(labelContrasenia)
-                    .addComponent(fieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelUsuario)
-                    .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(labelTitulo))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fieldContrasenia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fieldUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 136, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(logo)))
+                        .addComponent(labelContrasenia)
+                        .addGap(50, 50, 50))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(logo))
+                    .addComponent(labelTitulo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(52, 52, 52)
                 .addComponent(logo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(labelUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelContrasenia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(fieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(72, 72, 72))
+                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60))
         );
 
         pack();

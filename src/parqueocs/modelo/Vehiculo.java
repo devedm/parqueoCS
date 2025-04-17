@@ -18,6 +18,7 @@ public class Vehiculo {
     private LocalTime entradaHora;
     private LocalTime salidaHora;
     private int duracionMinutos;
+    private boolean porPagar;
 
     public Vehiculo(String placa) {
         this.placa = placa;
@@ -25,38 +26,18 @@ public class Vehiculo {
         this.entradaHora = LocalTime.now();
         this.salidaHora = LocalTime.now();
         this.duracionMinutos = 0;
+        this.porPagar = false;
     }
 
-    public Vehiculo(String placa, LocalDate fecha, LocalTime entradaHora, LocalTime salidaHora, int duracionMinutos) {
+    public Vehiculo(String placa, LocalDate fecha, LocalTime entradaHora, LocalTime salidaHora, int duracionMinutos, boolean porPagar) {
         this.placa = placa;
         this.fecha = fecha;
         this.entradaHora = entradaHora;
         this.salidaHora = salidaHora;
         this.duracionMinutos = duracionMinutos;
-    }
-
-    void calcularTiempo(){
-        if(fecha != null & entradaHora != null & salidaHora != null){
-            
-        }
+        this.porPagar = porPagar;
     }
     
-//    public Date asDate(LocalDate localDate) {
-//        return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-//    }
-//
-//    public Date asDate(LocalDateTime localDateTime) {
-//        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-//    }
-//
-//    public LocalDate asLocalDate(Date date) {
-//        return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-//    }
-//
-//    public LocalDateTime asLocalDateTime(Date date) {
-//        return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
-//    }
-
     public String getPlaca() {
         return placa;
     }
@@ -96,5 +77,14 @@ public class Vehiculo {
     public void setDuracionMinutos(int duracionMinutos) {
         this.duracionMinutos = duracionMinutos;
     }
+
+    public boolean isPorPagar() {
+        return porPagar;
+    }
+
+    public void setPorPagar(boolean porPagar) {
+        this.porPagar = porPagar;
+    }
+    
     
 }
