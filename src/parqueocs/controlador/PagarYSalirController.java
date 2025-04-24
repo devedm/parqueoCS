@@ -91,6 +91,13 @@ public class PagarYSalirController extends Controller implements ActionListener{
             
         } else if (salida.isAfter(ahora) && entrada.isAfter(ahora)) {
             // Se libera el espacio solamente se esta saliendo antes de entrar a parquear
+            
+            // Se baja el tiempo a 0 y no se cobra el extra
+            vehiculo.setFechaEntrada(ahora.toLocalDate());
+            vehiculo.setEntradaHora(ahora.toLocalTime());
+            vehiculo.setFechaSalida(ahora.toLocalDate());
+            vehiculo.setSalidaHora(ahora.toLocalTime());
+            vehiculo.setDuracionMinutos((int) validarTiempo(vehiculo).toMinutes());
             System.out.println("Salida sin parquear");
             
         } else {

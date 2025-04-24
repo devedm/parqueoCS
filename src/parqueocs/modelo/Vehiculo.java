@@ -22,7 +22,7 @@ public class Vehiculo {
     private boolean porPagar;
 
     public Vehiculo(String placa) {
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
         this.fechaEntrada = LocalDate.now();
         this.fechaSalida = LocalDate.now();
         this.entradaHora = LocalTime.now();
@@ -32,7 +32,7 @@ public class Vehiculo {
     }
 
     public Vehiculo(String placa, LocalDate fechaEntrada, LocalDate fechaSalida, LocalTime entradaHora, LocalTime salidaHora, int duracionMinutos, boolean porPagar) {
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
         this.entradaHora = entradaHora;

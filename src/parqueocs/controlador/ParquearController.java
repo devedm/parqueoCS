@@ -188,30 +188,30 @@ public class ParquearController extends Controller implements ActionListener{
     
     public Duration validarHora(){
         try {
-        // Parse fechas
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaEntrada = LocalDate.parse(vista.fieldFechaEntrada.getText(), formatoFecha);
-        LocalDate fechaSalida = LocalDate.parse(vista.fieldFechaSalida.getText(), formatoFecha);
+            // Parse fechas
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fechaEntrada = LocalDate.parse(vista.fieldFechaEntrada.getText(), formatoFecha);
+            LocalDate fechaSalida = LocalDate.parse(vista.fieldFechaSalida.getText(), formatoFecha);
 
-        // Parse horas
-        LocalTime horaInicio = sacarHoras(vista.comboHoraInicio, vista.comboMinutosInicio, vista.comboAMPMInicio);
-        LocalTime horaSalida = sacarHoras(vista.comboHoraSalida, vista.comboMinutosSalida, vista.comboAMPMSalida);
+            // Parse horas
+            LocalTime horaInicio = sacarHoras(vista.comboHoraInicio, vista.comboMinutosInicio, vista.comboAMPMInicio);
+            LocalTime horaSalida = sacarHoras(vista.comboHoraSalida, vista.comboMinutosSalida, vista.comboAMPMSalida);
 
-        // Unificar en LocalDateTime
-        var dateTimeEntrada = fechaEntrada.atTime(horaInicio);
-        var dateTimeSalida = fechaSalida.atTime(horaSalida);
+            // Unificar en LocalDateTime
+            var dateTimeEntrada = fechaEntrada.atTime(horaInicio);
+            var dateTimeSalida = fechaSalida.atTime(horaSalida);
 
-        // Validación
-        if (dateTimeEntrada.isBefore(dateTimeSalida)) {
-            return Duration.between(dateTimeEntrada, dateTimeSalida);
-        } else {
-            JOptionPane.showMessageDialog(null, "ERROR: Fecha/hora de inicio debe ser anterior a la de salida.", "Error", JOptionPane.ERROR_MESSAGE);
+            // Validación
+            if (dateTimeEntrada.isBefore(dateTimeSalida)) {
+                return Duration.between(dateTimeEntrada, dateTimeSalida);
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR: Fecha/hora de inicio debe ser anterior a la de salida.", "Error", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "ERROR al validar fechas u horas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, "ERROR al validar fechas u horas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        return null;
-    }
     }
     
     
