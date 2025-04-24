@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2025 at 10:41 AM
+-- Generation Time: Apr 25, 2025 at 01:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -88,6 +88,7 @@ INSERT INTO `usuario` (`cedula`, `nombre`, `contrasenia`) VALUES
 (115710857, 'NaniLaTulevieja', '123456789'),
 (115830244, 'Eddy', '123456789'),
 (123456789, 'mario moreno', '123456789'),
+(333222111, 'eddy', '123456789'),
 (369258147, 'Elkin', '369258147');
 
 -- --------------------------------------------------------
@@ -112,7 +113,8 @@ CREATE TABLE `vehiculo` (
 --
 
 INSERT INTO `vehiculo` (`placa`, `fechaEntrada`, `fechaSalida`, `entradaHora`, `salidaHora`, `duracionMinutos`, `cedulaUsuario`, `porPagar`) VALUES
-('asd123', '2025-04-17', '2025-04-17', '02:30:00', '02:45:00', 15, 123456789, 0),
+('asd123', '2025-04-24', '2025-04-24', '15:26:55', '15:26:55', 0, 123456789, 0),
+('ooo333', '2025-04-21', '2025-04-21', '21:15:00', '21:18:40', 3, 333222111, 0),
 ('qwe123', '2025-04-17', '2025-04-17', '02:27:51', '02:27:51', 0, 123456789, 0);
 
 --
